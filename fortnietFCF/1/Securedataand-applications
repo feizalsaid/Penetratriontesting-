@@ -1,0 +1,74 @@
+Compliance --- main cause for security :)
+
+
+APPLICATION HARDENING 
+
+DATA PROTECTION 
+-----------------
+Entails data at rest,transit and in use 
+to ensure -- cnfidentiality , availablity integrity and non-repudiation 
+
+
+DATA STORAGE
+More copies of data -- more point of possible records
+more preferred  to send links in emails rather than docs 
+
+
+Obfuscation -- minimizing value of sensitive data to attackers
+
+data resiliency -- back ups 
+
+
+DATA LOSS PREVENTION 
+identify sensitive info 
+prevent accidental sharing of data  
+audit and monitor data movements 
+educate users on compliance 
+
+DATA PRIVACY 
+GOVERNMENT BODIES -- GDPR --protection of personal data
+ISO
+NIST 
+SOC2
+PIPEDA-canadian
+CCPA--california
+HIPAA--protects snsitive health info 
+PCI DSS--payment  trnasmit payment or cardholder data 
+
+
+
+
+#e################################################
+SECURE EMAIL GATEWAY
+#################################################
+SPF -- email auth method 
+
+
+filtering emails using keywords 
+
+
+WAF-- WEB APPLOCATION FIREWALL
+monitors web traffic  at application layer
+APPLICATION FW --used a defined blocklist 
+g
+
+ CONTENT FILTERS
+ SEARCH ENGINbE FILTERS---
+text and imagess hold a certain degree of weight
+EMAIL FILTERS --attachments] email headers 
+DNS BASED --- DNS BASED Servers with blocklists
+WEB BASED --dns + web categorization
+
+APPLICATION HARDENING\]]]]]]]]]]]
+use of company approved software 
+train employees
+cookie managements--cookies in the advanced security option 
+minimize add-ons --only download company approved add-ons 
+pop up blockers--malware 
+download active java applets  with caution 
+
+
+
+PROXY -- filter restricted sites 
+increase bandwith using caching and content-filterng 
+

@@ -1,0 +1,51 @@
+CATEGORIES OF IOT
+1.Personal devices 
+2.Resedential locations
+3.Industrial devices
+HARDENING ENDPOINTS WITH AND WITHOUT ADMIN ACCESS
+1.WITH
+------
+Passwords 
+User restrictions
+PoLP
+
+End-Point monitoring 
+EPP-- end protecion platform
+IDS-- intrusion ddetction system 
+EDR-- endp deetection response --constantly scans  end points for IoC 
+-->utilizes AI to recognize sus files and programs and quarantine systems supposedly compromised
+---> allows for immediate response
+
+
+
+Endpoint Maintenance 
+Updates 
+policy checks 
+Backups
+
+End point hardening 
+OS hardening  
+Boot managemnet -BIOS lock up 
+##protetcts from firmware malware attacks 
+thatswhy uefi is now preferred over bios
+
+Data loss prevention DLP---detects when sosmeone tries to copy or modify sensitive data
+------also limits amount of attachable drives to prevent transfer of large chunks of data
+
+
+2.WITHOUT 
+--------
+Endpoint maintenance , hardening , monitoring 
+
+
+top-down view when securing networks can help design policies
+
+Having a fixed list of trusted OSes
+
+
+
+FULL DISK ENCRYPTION (FDE software based encryption )-- phones 
+SELF ENCRYPTING DEVICE
+
+END POINT MONITORING 
+

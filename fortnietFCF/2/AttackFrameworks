@@ -1,0 +1,33 @@
+Cyber kill chain
+------>1-recon
+	2.weaponization -- payload, malware,
+	3.Delivery -- delivers payloads
+	4.Exploitation --system to leverage vulnerabilities
+	5.Installation -- foothold into the systsem
+	6.Commmand and control -- 
+	7.Exfiltration 
+###DISADVANTAGE#######
+assumes attack is from outside the network 
+supports traditional defense methods 
+
+
+ 
+mitreAtt&ck 
+
+n
+INSIDER THREAT
+-Espionage 
+-Fraud 
+-Intellectual theft 
+-Sabnotage
+
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+MALWARE                 \\\\
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+sluggish behaviour  
+pop-up ads 
+slow application launching 
+
+
+ATTACK VECTORS ~method bad actors use to gain access to a system 
+

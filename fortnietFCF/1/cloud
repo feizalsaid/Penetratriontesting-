@@ -1,0 +1,52 @@
+VIRTUAL MACHINES RISKS
+scalability , availability and elasticity 
+//////////
+securing virtual environments
+/////////
+- patch the OS
+-Access management with strong  password policies 
+-install virtual firewalls 
+-implement cloud network segmentation 
+
+
+Limit connectivity btn host and VM 
+Remove unneccessary virtual he=rdware
+Avoid virtualization sprawl  by implementing sound  management  planning 
+
+restrict access to the hypervisor 
+
+
+
+data remnants -- overwritting 
+				degaussing--rearranging magnetic  fields on a hard drive
+			
+				crypto -erasing --removing existing encryption key replacing it with a new one thus data encrypted with the previous is renderred unrecoverrable
+				
+				shredding --mechanical phyysical destruction 
+
+
+
+______________________
+COMMON CLOUD THREATS
+______________________
+Authentication and authorization  -ensure modern auth models and  PoLP 
+VM Creep -- frequent auditing of cloud-based machines and data 
+Misconfigure storage -- robust  securing and cntaining the containers
+Data  Loss --- 
+
+Connectivity --- encrypt and secure data being transferred 
+Improper logging and monitoring -- centralizing data into a SIEM  
+Rights and Data Ownership -- ownership and local laws 
+Cloud native protection / cloud native application protection 
+
+xy
+
+restrict cross site access --allow cors (cross origin resource sharing )
+Logs are key 
+Authority as a service 
+CASB(cloud security access broker) 
+
+REST API-- quick conf and simple monitoring 
+SOAP -- xml schema post request ---legacy aps 
+API work against a predefined api schema 
+

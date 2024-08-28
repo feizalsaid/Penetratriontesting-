@@ -1,0 +1,76 @@
+SECURE REMOTE ACCESS
+
+Data Privacy 
+Data integrity 
+AUTHENTICATION
+AUTHORIZATION 
+ACCOUNTING----
+======
+COMMON METHODS
+IPsec VPN
+SSL VPN
+ZTNA
+
+
+VPN ---- CLIENT
+				SERVER 	
+				PROTOCOLS
+
+VPNS can either be ---
+          site-site
+	        or secure remote access
+
+MAIN DIFF betwen vpn and ztna is the enhanced security in ztna
+
+IPsec 					SSL VPN						ZTNA
+L3 of osi 	   L4-L7								 L4-L7
+VPN CLIENT APPL		WEB BROWSER 			ZTNA CLIENT --- IMPLEMENATAION REQUIRED ON CLIENT
+no acces control 			 granular access control 		 role-based access control 
+industry standard 		vendor specific 		 vendor specific
+_______________________
+
+SSL VPN
+Allows encrypted sesion between two computing devices 
+Encryption is done on L4 --transport layer
+Ensures privacy ,integrity, authentication,anti-eplay(by adding a message authentication code)
+
+
+
+SSL tunnel 
+	LIKE thm 
+ip address assigned is just for that sesion 
+
+supports greater nmber of protocols thus greater access to resources
+LIMITATIONS __
+(SSL VPN)
+other apps on client cant send data to server  
+
+
+restricts network resources accessed  
+
+
+
+
+IPSEC VPN
+L3 encapsulation 
+MODES- tunnel (more of the data packets is encapsulated)
+				transport 
+
+Authentication Header --(AH) ensures integrity , origin authenticity and protection from replay attacks 
+Encapsulation Security Protocol --(ESP) ensures that data remains private from end to end
+
+1.KEY EXCHANGE
+	A.Security Association-client and server agree on  
+	     crytpographic algorithms
+			IPsec mode
+			Network parameters
+ B.Mutual Authenticaction 
+ C.Shared session key thru IEK internet key exchange
+
+2.DATA ASSEMBLY 
+3.AUTHENTICATION
+4.ENCRYPTION (unless transport mode is used)
+5.TRANSMISSION,DECRYPTION, VERIFICTION 
+USES __UDP -- to allow ipsec packets to get through firewalls
+:
+
