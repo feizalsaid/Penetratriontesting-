@@ -1,0 +1,111 @@
+#day one of nine (2/9)of network plus 
+CSMA/CA -- a node sends a signal that it wants to transmit ((ideally 
+CSMA/CD -- carrier sense multiple access collision detection 
+nodes checked to see if the cable was in use 
+if it was  -- the node would wait a couple of milliseconds and retransmit
+if not it would just transmit
+
+if two nodes transmitted at the same time  -- theey would sense the collision and stop transmitting and generate random numbers ((to wait  in order to transmit 
+))  the one with the smallest number would transmit first 
+
+the bigger the network the bigger the collision domain the slower the network 
+thats in when using hubs
+
+in switches each port is it's own collision domain 
+SWITCH >>> BROADCAST DOMAIN 
+
+#CONNECTING SWITCHES 
+UPLINK PORTS --->when connecting two switches with a stri=aight through cable 
+mostly in old switches  newer switches use auto-sense auto-medium-dependent interface crossover MDI-X
+CROSSOVER CABLE
+
+gobb
+green orange blue brown -- typeA 
+orange green blue brown  --typeB
+
+
+###STP SPANNING TREE PROTOCOL 
+Adopted due to bridging /switching loops  -- where  a aframe would be caught a loop never reaching it's destination 
+STP uses  BPDUs -- bridge protocol data units --where switches  communicate  with other switches to prevent loops from happeninng 
+
+
+Configuration BPDUs  establish the topology where one switch is elected root bridge  and acts as the centre of the STP set up 
+each switch then uses th root brige as a reference point to maintain a loop free topology 
+There would be   redundant links for fault tolerance  that would ordinarily cause  a switching loop  but certain ports would be in 'blocking ' state  and wouldn't send or receive  frames 
+the blocking state ports   would still hear the BPDUs  sourced from the root bridge  and forwaded downstream @ 2 seconds 
+
+if a link goes down STP sends a Topology-Change-Notification BPDU -- that enables the switches  to rework themselves  around the failed device 
+Ports  in 'BLOCKING' state would realize they're needed and eventually move  to a 'FORWARDING' state
+Switch port connected directly to a PC should never participate in STP and could be configured with a PORTFAST setting that enables the interface to come up right away without the latency introduced by the STP and prevent TCN BPDUs from being sent  out of that switch every time the PC is powered on and off
+
+BPDU guard -- moves  a  port configured with PortFast  into an errdisable state (( ERROR OCCURED ,DiSABLED)) ,, if  a BPDU is recieved  in that port 
+Ports with PortFast  must never  recieve BPDUs because theyll cause switching loops 
+
+
+ROOT GUARD -- will move a port   into  root-inconsistent  state  if BPDUs from a certain direction indicate  another switch is trying to become a root-bridge 
+The root-inconsistent port will automatically return to it's forwading  state once these BPDUs stop 
+this helps define  areas where root bridge should never be located
+
+STP takes 50 seconds  to come back up and RSTP takes 6 seconds Rapid-spanning-tree-protocol 
+
+1.B
+2.A   XXX
+3.C
+4.B
+5.B
+6.A
+7.D
+8.A D
+9.D
+10.D
+9/10
+ethernet frames 
+
+
+
+
+
+CHAPTER 4
+ETHERNET STANDARDS 
+
+1.C
+2.A
+3.C
+4.D  XXXXXXXXXXXXX
+5.BXXXXXXXXXXXXXXXX
+6.D
+7.C XXXXXXXXXXXXX
+8.D
+9.D
+10.B   XXXXXXXXXXXXXX 
+
+
+ETHERNET STANDARDS IS A MUST REVISIT
+
+
+#################CHAPTER 5 
+STRUCTURED CABLING 
+Horizontal calbing --should always use solid core 
+1 UNIT -- 1.75 inches 
+pg 133no collision s))
+CPE -- customer-premises equipment ((demarc extension ))
+
+
+
+
+LINK AGGREGATION <BONDING ? LINK AGGREGATION--- adding an extra llane  of equal speeds when sending files it allows for one file to copy or move at top speeds
+------------------
+link lights 
+------------------
+functions to show activity , status , link 
+no standard way of manufacturing  or arrangemen
+1.C
+2.B
+3.B
+4.B
+5.C
+6.B A
+7.D
+8.C
+9.C D 
+10.U
