@@ -1,0 +1,29 @@
+EC2 -- elastic compute cloud '
+multitenacy -- sharing underlying  hardware resources  between VMs
+
+vertical scaling -- increasing or decreasing allocated things
+
+CaaS -- compute as a service  
+
+EC2 offers different instance families :
+	general purpose -- balanced resources -- web resources
+	computer optimized -- compute intense tasks games 
+						-- apps that benefit from high performance processors
+						
+	memory optimized -- fast performance for workloads that process large datasets
+	
+	accelerated computin-- utilize hardware accelerations
+	storage optimiized -- high performance for  locally stored data 
+						-- workloads  that require  high , sequential read and write access  to large datasets  on local machines
+						data  warehousing apps
+						high frequency online transactions  processing 
+						-- offers ,000's of  low latency  random  IOPS --input output per sec
+
+on-demand -- literally on demand
+				
+	
+scaling
+-- ec2 autoscaling service
+dynamic sclaing -- changes with demand
+predictive scaling -- as the name  suggests
+

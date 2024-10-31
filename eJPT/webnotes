@@ -1,0 +1,8 @@
+
+dig -axfr @IP name 
+nslokup 
+whois 
+wpscan 
+shodan 
+amass >> better than sublist3r
+

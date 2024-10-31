@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo  "$(date)" >> l.txt
+
+echo "$(who | cut -d ' ' -f 1,14 | tr ' ' \n) " >> l.txt
+echo "$(uptime  | cut -d ' ' -f2- )" >> l.txt

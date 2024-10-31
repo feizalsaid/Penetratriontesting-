@@ -1,0 +1,90 @@
+SECURITY FRAMEWORKS 
+~guidelines for building plans to help mitigate risks and threats to data 
+protects Personal Identifiable Information PII 
+		SPII  sensitive PII
+		
+
+GDPR -- General Data Protection regulations
+--law to give EU citizens control over their data
+gives  72 hours for users to be notified about data breaches
+
+############################
+components of security frameworks
+############################
+1.Identifying and documenting security goals
+2.setting guidelines to achieve the set goals
+3.Implementing strong security processes
+4.Monitoring and communicating 
+
+
+
+
+
+
+#-----------__SECURE  DESIGN__-------------##########
+CIA triad
+confidentiality 
+integerity 
+availability 
+
+
+ASSET-- a value deemed to have valuable data
+
+
+
+NIST CSF--
+baseline to protect against long term and short term risks and threats
+
+
+NIST RME 
+
+
+CIP --critical infrastructure protection 
+FedRAMP-- FEDERAL RISK and AUTHORIZATIon MANAGEMENT PROGRAM
+PCI DSS -- payment card industry data security standard 
+HIPAA -- health insurance portability and accountability 
+Protects PHI --protected health information -- acn lead to identity theft and insurance fraud
+
+
+-----------------------
+controls , frameworks and compliance 
+-----------------------------------
+
+SOC level 1 
+SOC level 2
+---they're both reports that focus on an organizations user access policies at
+ different levels -- manager , guests , executives
+
+--- assesses an organizations financial compliance and levels of risk
+covers privacy confidentiality integrity availablity security and overall data safety 
+
+
+most frameworks are frequently revised to keep up-to -date with ever changing landscape 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Ethics in cybersecurity 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Confidentiality ---- 
+Privacy protection -- from unauthorized sources
+
+CounterAttack to threat actors is illegal thus defense is the only available option
+Counterattacks are deeemed vigilante acts and can lead to greater escalations 
+This only applies in the  U.S
+acktivist ,
+______________________
+INTERNATIONAL STANDPOINT ON COUNTER ATTACKS
+________________________________________
+Counter attacks can only be done if:
+	if it will only affect the attacking party only
+	if its direct communication asking the attacker to stop 
+	if it doesn't escalate the situation 
+	if the counter attacks can be reversed 
+	
+mostly it's never easy to determine the above conditions with certainty 
+
+
+Security Architechture  ---- securtity design composed of several components  , such as tools and processes , used to protect an organization from risk and external threats
+Security Controls ---- safeguards designed  to reduce specific security risk 
+Security governance ---- practices that support define  and direct security  efforts of an organization 
+PHI -- protected health info --- past present and future records of someones medical data
+

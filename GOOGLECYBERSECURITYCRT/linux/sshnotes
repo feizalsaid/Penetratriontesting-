@@ -1,0 +1,53 @@
+####learning about ssh in depth 
+###I'll be using my kali machine as a client and my localohost as the server 
+to reduce typing username hostname  add a config file
+inside  th config file write this
+	host <nameof server> ## an alias for that server  that you'll be using 
+		hostname <IP>
+		port <port number>
+		user <username>
+ONLY THING YOU"LL BE PROMPTED FOR IS THE PASSWORD
+YOU CAN SET UP SEVERAL SERVERS 
+
+
+CONFIG FILE --- entries for several serveral servers 
+
+
+###############SSh KEYS ######
+disabling password authentication
+generate keys 
+passphrase  is very important  --when using the  keys
+
+copying id_rsa.pub to an authorized_keys  -- if the  keys ahd a passphrase  it's the only thing that'll be prompted  -- that's the  hard way
+##easy way 
+ssh-copy-id  -- copy pastes  public keys  into remote servers
+
+
+###safer and shorter than default rsa
+###ssh-keygen -t ed25519 -C "acme" -- -C comments
+
+
+
+
+####sssh-agent 
+
+caches the password once for all times
+adds the key to memory 
+here you actually cache the private key 
+
+eval '$(ssh-agent)'
+ssh-add <private key>
+ssh user
+
+
+you won't have to enter the passwd again unless you close the terminal 
+ssh-agent runs  in background  in linuxdesktop agents
+
+/etc/ssh/sshd_config -- change passwordauthentication to no and change the default port from 22
+
+
+
+
+
+
+

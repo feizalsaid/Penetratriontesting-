@@ -1,0 +1,8 @@
+#!/bin/bash
+for i in /{,usr/}bin/*calc
+do 
+	if  [ -x "$i" ] 
+	then 	 
+		echo $i
+	fi 
+done

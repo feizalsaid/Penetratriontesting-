@@ -1,0 +1,52 @@
+# IPython log file
+
+
+hexstring = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"
+decoded_hex = bytes.fromhex(hexstring).decode('utf-8')
+decoded_hex
+import  base64 
+base64string = base64.b64encode(decoded_hex)
+base64string = base64.b64encode(str(decoded_hex))
+base64string = base64.b64encode(decoded_hex)
+base64string = base64.b64encode(decoded_hex).enecode('utf-8')
+base64string = base64.b64encode(decoded_hex.enecode('utf-8'))
+base64_encoded = base64.b64encode(decoded_hexs)
+base64_encoded = base64.b64encode(decoded_hex)
+type(decoded_hex)
+strasbytes= decoded_hex.encode('utf-8')
+strasbytes
+base64_encoded = base64.b64encode(strasbytes)
+base64_encoded
+###its actually a bit simple 
+###convert  hex to str then  str to bytes 
+#then bytes to b64
+string = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"
+decodedhex = bytes.fromhex(string).decode('utf-8')
+decodedhex
+###convert  it to bytes 
+stringsasbytes = decodedhex.encode('utf-8')
+stringsasbytes 
+type(stringsasbytes)
+####encode  in base64 
+import  base64
+base64str = base64.b64(stringasbytes)
+base64str = base64.b64encode(stringasbytes)
+base64str = base64.b64encode(stringasbyte)
+strasbytes
+base64str = base64.b64encode(strasbytes)
+base64str 
+#####part2 
+def xor_buffers(buffer1 , buffer2):
+    ###ensure equal length 
+    if len(buffer1) != len(buffer2):
+        raise  ValueError("buffers must be of the same size")
+    
+def xor_buffers(buffer1 , buffer2):
+    ###ensure equal length 
+    if len(buffer1) != len(buffer2):
+        raise  ValueError("buffers must be of the same size")
+    return bytes([b1 ^ b2 for b1 , b2 in zip(buffer1,buffer2)])
+    
+buffer1= '1c0111001f010100061a024b53535009181c'
+buffer2 = '686974207468652062756c6c277320657965'
+result = xor_buffers(buffer1 , buffer2)

@@ -1,0 +1,58 @@
+model -- the way in which data is stored in the DB 	
+		-- hierachical , network , entity-relation , relational
+dbms -- database management system 
+SQL is case insensitive -- both upper and lowercase work fine 
+###select statement ###
+* -- all columns 
+columnnames -- only retrieves given column names values
+
+####where clause ###
+filters output according to the given condition 
+	-- select * from <table> where CITY='Nairobi'
+
+relation operators
+	= equal 
+	<> not equal 
+	> gt 
+	< lt 
+	<= le
+	>= ge 
+	
+####distinct ####
+distinct -- removes duplicates
+		 -- only gets unique values
+NOT operator  -- negates  the condition 
+
+###order by #####
+select * from <table> order by <column> asc/dsc ; asc -- default 
+
+####like operator
+select 8 from ,table> where <columnnname> like = '%a'
+
+% -- multiple characters
+_ -- one characters		 
+##between ##
+filter  in the specified range 
+	--select * from <table> where price between 10 and 35;
+	
+###Aliases###
+AS  --its optional 
+multiple words for an alias need to use [multiple name]
+
+##limit keyword###
+
+
+#####STRING FUNCTIONS ####
+upper()
+lower()
+
+
+
+
+
+
+
+
+
+
+

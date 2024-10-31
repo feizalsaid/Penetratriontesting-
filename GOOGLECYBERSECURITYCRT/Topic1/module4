@@ -1,0 +1,14 @@
+Playbookks--manual on how to respond to incidents , before during an after .
+	Forensics Playbooks to follow --
+									-- chain of custody ---> documenting evidence possession an control during an incident lifecycle
+									-- protecting and preserving playbook --working with fragile and volatile data 
+									-- order of volatilty --order of data that must be preserved from  first to last 
+SIEM tools-- a tool that collects and analyzes log data to monitor critical activities in an organization eg splunk 
+chronicle -- cloud based
+
+net analyzers-- 
+
+Antivirus -- scans the memory of s device to check for the presence of malware
+
+IDS-- application that monitors system activity and alerts on possible intrussions
+	--scans and analyzes network packets 

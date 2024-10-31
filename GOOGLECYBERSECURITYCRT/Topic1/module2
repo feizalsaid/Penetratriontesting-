@@ -1,0 +1,74 @@
+Phishing -- use of digital communications totrick people  into revealing sensitive data ordeploying malware
+BEC-- business email compromise 
+
+Malware -- malicious software 
+VIRUS-- malicious code  written to interfere with computer operations , needs to be initiated by a user 
+ WORMS -- malware that can duplicate itself across the given network on it's own 
+RANSOMWARE -- the threat actor encrypts the data and demands payment 
+
+
+SOCIAL ENGINEERING -- xploiting human error to gain private info , access or valuables
+They are mainly successful because threat actors --
+Impersonate authority 
+intimidate 
+Pretend to be legitimate 
+Scarcity 
+FAmiliarity 
+Trust 
+Urgency 
+
+-------------------
+CISSP Security Domains   |
+-------------------
+1.Security and Risk Managememt -- Security goals and objectives , compliance  , risk mitigation and business continuity and the law
+								updating policies 
+2.Asset security -- secuiring digital and physical assets 
+					securing , storage , maintenance , retention and destruction of data
+					
+3.Security Architechture -- optimizing data security by updating tools  
+
+4.Communication and net security -- securing physical networks and wireless neworks
+									creating network policies
+
+
+5.Identity and access management -- keeps data secure by ensuring users follow policies to control and manage physical assets and logiacl assets
+
+6.Security assessment and testing -- security control testing , collecting and analyzing data and conducting security audits  to monitor risks , threats and vulnerabilities 
+
+7.Security operations  -- investigates and implements preventive measures
+
+8.Secure Develeopment security -- using secure coding practices to create secure applications and services 
+
+
+ATTACK TYPES 
+------------
+Password attacks  -- attempt to access pasword secured networks or data 
+					rainbow attacks , brute force 
+Social engineering attacks -- manipulation of human error  to gain private information 
+
+Physical attacks -- security incident that affects  both physical and digital environments
+ 					malicious usb , flash drive 
+
+Adverserial Machine learning -- attacks that manipulate AI and ML to conduct attacks more efficiently 
+			falls under communication , network  security adn identity and access mgmt
+
+
+Suppl chain attack -- targets systems applications hardware and software to locate a vulnerability where malware can be deployeed
+
+
+Cryptographic attack -- attacks on communication forms between sender and recipient 
+						birthday attacks 
+						collision attacks 
+						downgrade attacks
+
+
+@@@@@@@@@@@@@@@@@@@@@@@@
+THREAT ACTOR TYPES 
+@@@@@@@@@@@@@@@@@@@@@@@
+APT's (ADVANCED PERSISTENT THREATS))
+researarch well in advance  and can remain undetected for an extended period of time 
+
+2.INSIDER THREAT 
+Abuse their authhorized access to obtain data that may harm an organization 
+ 	sabotage , espionage , unauthorized data access or leaks
+ 	
